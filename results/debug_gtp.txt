@@ -1,0 +1,1248 @@
+﻿Running single test (Scenario1_Random + HCPP)...
+Start position: (0, 0)
+Map size: 30x30
+Total non-obstacle cells: 841
+[DEBUG] Initial cell decomposition saved to results/test/initial_cells.png
+[DEBUG GTP] === Active Tasks ===
+  Task 1: col=1, y=[1..28], adj=[0, 2]
+  Task 2: col=2, y=[1..28], adj=[1, 3]
+  Task 3: col=3, y=[1..28], adj=[2, 4]
+  Task 4: col=4, y=[1..28], adj=[3, 5]
+  Task 5: col=5, y=[1..28], adj=[4, 6]
+  Task 6: col=6, y=[1..28], adj=[5, 7]
+  Task 7: col=7, y=[1..28], adj=[6, 8]
+  Task 8: col=8, y=[1..28], adj=[7, 9]
+  Task 9: col=9, y=[1..28], adj=[8, 10]
+  Task 10: col=10, y=[1..28], adj=[9, 11]
+  Task 11: col=11, y=[1..28], adj=[10, 12]
+  Task 12: col=12, y=[1..28], adj=[11, 13]
+  Task 13: col=13, y=[1..28], adj=[12, 14]
+  Task 14: col=14, y=[1..28], adj=[13, 15]
+  Task 15: col=15, y=[1..28], adj=[14, 16]
+  Task 16: col=16, y=[1..28], adj=[15, 17]
+  Task 17: col=17, y=[1..28], adj=[16, 18]
+  Task 18: col=18, y=[1..28], adj=[17, 19]
+  Task 19: col=19, y=[1..28], adj=[18, 20]
+  Task 20: col=20, y=[1..28], adj=[19, 21]
+  Task 21: col=21, y=[1..28], adj=[20, 22]
+  Task 22: col=22, y=[1..28], adj=[21, 23]
+  Task 23: col=23, y=[1..28], adj=[22, 24]
+  Task 24: col=24, y=[1..28], adj=[23, 25]
+  Task 25: col=25, y=[1..28], adj=[24, 26]
+  Task 26: col=26, y=[1..28], adj=[25, 27]
+  Task 27: col=27, y=[1..28], adj=[26, 28]
+  Task 28: col=28, y=[1..28], adj=[27, 29]
+[DEBUG GTP] current=1, neighbors=[2]
+  neighbor 2: col=2, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=2
+[DEBUG GTP] current=2, neighbors=[3]
+  neighbor 3: col=3, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=3
+[DEBUG GTP] current=3, neighbors=[4]
+  neighbor 4: col=4, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=4
+[DEBUG GTP] current=4, neighbors=[5]
+  neighbor 5: col=5, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=5
+[DEBUG GTP] current=5, neighbors=[6]
+  neighbor 6: col=6, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=6
+[DEBUG GTP] current=6, neighbors=[7]
+  neighbor 7: col=7, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=7
+[DEBUG GTP] current=7, neighbors=[8]
+  neighbor 8: col=8, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=8
+[DEBUG GTP] current=8, neighbors=[9]
+  neighbor 9: col=9, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=9
+[DEBUG GTP] current=9, neighbors=[10]
+  neighbor 10: col=10, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=10
+[DEBUG GTP] current=10, neighbors=[11]
+  neighbor 11: col=11, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=11
+[DEBUG GTP] current=11, neighbors=[12]
+  neighbor 12: col=12, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=12
+[DEBUG GTP] current=12, neighbors=[13]
+  neighbor 13: col=13, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=13
+[DEBUG GTP] current=13, neighbors=[14]
+  neighbor 14: col=14, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=14
+[DEBUG GTP] current=14, neighbors=[15]
+  neighbor 15: col=15, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=15
+[DEBUG GTP] current=15, neighbors=[16]
+  neighbor 16: col=16, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=16
+[DEBUG GTP] current=16, neighbors=[17]
+  neighbor 17: col=17, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=17
+[DEBUG GTP] current=17, neighbors=[18]
+  neighbor 18: col=18, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=18
+[DEBUG GTP] current=18, neighbors=[19]
+  neighbor 19: col=19, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=19
+[DEBUG GTP] current=19, neighbors=[20]
+  neighbor 20: col=20, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=20
+[DEBUG GTP] current=20, neighbors=[21]
+  neighbor 21: col=21, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=21
+[DEBUG GTP] current=21, neighbors=[22]
+  neighbor 22: col=22, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=22
+[DEBUG GTP] current=22, neighbors=[23]
+  neighbor 23: col=23, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=23
+[DEBUG GTP] current=23, neighbors=[24]
+  neighbor 24: col=24, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=24
+[DEBUG GTP] current=24, neighbors=[25]
+  neighbor 25: col=25, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=25
+[DEBUG GTP] current=25, neighbors=[26]
+  neighbor 26: col=26, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=26
+[DEBUG GTP] current=26, neighbors=[27]
+  neighbor 27: col=27, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=27
+[DEBUG GTP] current=27, neighbors=[28]
+  neighbor 28: col=28, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=28
+  Step 0: coverage=13.91% (117/841), CTS tasks=28
+[DEBUG GTP] === Active Tasks ===
+  Task 2: col=2, y=[1..28], adj=[1, 3]
+  Task 3: col=3, y=[1..28], adj=[2, 4]
+  Task 4: col=4, y=[1..28], adj=[3, 5]
+  Task 5: col=5, y=[1..28], adj=[4, 6]
+  Task 6: col=6, y=[1..28], adj=[5, 7]
+  Task 7: col=7, y=[1..28], adj=[6, 8]
+  Task 8: col=8, y=[1..28], adj=[7, 9]
+  Task 9: col=9, y=[1..28], adj=[8, 10]
+  Task 10: col=10, y=[1..28], adj=[9, 11]
+  Task 11: col=11, y=[1..28], adj=[10, 12]
+  Task 12: col=12, y=[1..28], adj=[11, 13]
+  Task 13: col=13, y=[1..28], adj=[12, 14]
+  Task 14: col=14, y=[1..28], adj=[13, 15]
+  Task 15: col=15, y=[1..28], adj=[14, 16]
+  Task 16: col=16, y=[1..28], adj=[15, 17]
+  Task 17: col=17, y=[1..28], adj=[16, 18]
+  Task 18: col=18, y=[1..28], adj=[17, 19]
+  Task 19: col=19, y=[1..28], adj=[18, 20]
+  Task 20: col=20, y=[1..28], adj=[19, 21]
+  Task 21: col=21, y=[1..28], adj=[20, 22]
+  Task 22: col=22, y=[1..28], adj=[21, 23]
+  Task 23: col=23, y=[1..28], adj=[22, 24]
+  Task 24: col=24, y=[1..28], adj=[23, 25]
+  Task 25: col=25, y=[1..28], adj=[24, 26]
+  Task 26: col=26, y=[1..28], adj=[25, 27]
+  Task 27: col=27, y=[1..28], adj=[26, 28]
+  Task 28: col=28, y=[1..28], adj=[27, 29]
+[DEBUG GTP] current=2, neighbors=[3]
+  neighbor 3: col=3, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=3
+[DEBUG GTP] current=3, neighbors=[4]
+  neighbor 4: col=4, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=4
+[DEBUG GTP] current=4, neighbors=[5]
+  neighbor 5: col=5, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=5
+[DEBUG GTP] current=5, neighbors=[6]
+  neighbor 6: col=6, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=6
+[DEBUG GTP] current=6, neighbors=[7]
+  neighbor 7: col=7, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=7
+[DEBUG GTP] current=7, neighbors=[8]
+  neighbor 8: col=8, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=8
+[DEBUG GTP] current=8, neighbors=[9]
+  neighbor 9: col=9, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=9
+[DEBUG GTP] current=9, neighbors=[10]
+  neighbor 10: col=10, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=10
+[DEBUG GTP] current=10, neighbors=[11]
+  neighbor 11: col=11, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=11
+[DEBUG GTP] current=11, neighbors=[12]
+  neighbor 12: col=12, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=12
+[DEBUG GTP] current=12, neighbors=[13]
+  neighbor 13: col=13, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=13
+[DEBUG GTP] current=13, neighbors=[14]
+  neighbor 14: col=14, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=14
+[DEBUG GTP] current=14, neighbors=[15]
+  neighbor 15: col=15, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=15
+[DEBUG GTP] current=15, neighbors=[16]
+  neighbor 16: col=16, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=16
+[DEBUG GTP] current=16, neighbors=[17]
+  neighbor 17: col=17, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=17
+[DEBUG GTP] current=17, neighbors=[18]
+  neighbor 18: col=18, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=18
+[DEBUG GTP] current=18, neighbors=[19]
+  neighbor 19: col=19, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=19
+[DEBUG GTP] current=19, neighbors=[20]
+  neighbor 20: col=20, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=20
+[DEBUG GTP] current=20, neighbors=[21]
+  neighbor 21: col=21, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=21
+[DEBUG GTP] current=21, neighbors=[22]
+  neighbor 22: col=22, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=22
+[DEBUG GTP] current=22, neighbors=[23]
+  neighbor 23: col=23, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=23
+[DEBUG GTP] current=23, neighbors=[24]
+  neighbor 24: col=24, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=24
+[DEBUG GTP] current=24, neighbors=[25]
+  neighbor 25: col=25, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=25
+[DEBUG GTP] current=25, neighbors=[26]
+  neighbor 26: col=26, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=26
+[DEBUG GTP] current=26, neighbors=[27]
+  neighbor 27: col=27, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=27
+[DEBUG GTP] current=27, neighbors=[28]
+  neighbor 28: col=28, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=28
+[DEBUG GTP] === Active Tasks ===
+  Task 3: col=3, y=[1..28], adj=[2, 4]
+  Task 4: col=4, y=[1..28], adj=[3, 5]
+  Task 5: col=5, y=[1..28], adj=[4, 6]
+  Task 6: col=6, y=[1..28], adj=[5, 7]
+  Task 7: col=7, y=[1..28], adj=[6, 8]
+  Task 8: col=8, y=[1..28], adj=[7, 9]
+  Task 9: col=9, y=[1..28], adj=[8, 10]
+  Task 10: col=10, y=[1..28], adj=[9, 11]
+  Task 11: col=11, y=[1..28], adj=[10, 12]
+  Task 12: col=12, y=[1..28], adj=[11, 13]
+  Task 13: col=13, y=[1..28], adj=[12, 14]
+  Task 14: col=14, y=[1..28], adj=[13, 15]
+  Task 15: col=15, y=[1..28], adj=[14, 16]
+  Task 16: col=16, y=[1..28], adj=[15, 17]
+  Task 17: col=17, y=[1..28], adj=[16, 18]
+  Task 18: col=18, y=[1..28], adj=[17, 19]
+  Task 19: col=19, y=[1..28], adj=[18, 20]
+  Task 20: col=20, y=[1..28], adj=[19, 21]
+  Task 21: col=21, y=[1..28], adj=[20, 22]
+  Task 22: col=22, y=[1..28], adj=[21, 23]
+  Task 23: col=23, y=[1..28], adj=[22, 24]
+  Task 24: col=24, y=[1..28], adj=[23, 25]
+  Task 25: col=25, y=[1..28], adj=[24, 26]
+  Task 26: col=26, y=[1..28], adj=[25, 27]
+  Task 27: col=27, y=[1..28], adj=[26, 28]
+  Task 28: col=28, y=[1..28], adj=[27, 29]
+[DEBUG GTP] current=3, neighbors=[4]
+  neighbor 4: col=4, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=4
+[DEBUG GTP] current=4, neighbors=[5]
+  neighbor 5: col=5, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=5
+[DEBUG GTP] current=5, neighbors=[6]
+  neighbor 6: col=6, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=6
+[DEBUG GTP] current=6, neighbors=[7]
+  neighbor 7: col=7, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=7
+[DEBUG GTP] current=7, neighbors=[8]
+  neighbor 8: col=8, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=8
+[DEBUG GTP] current=8, neighbors=[9]
+  neighbor 9: col=9, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=9
+[DEBUG GTP] current=9, neighbors=[10]
+  neighbor 10: col=10, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=10
+[DEBUG GTP] current=10, neighbors=[11]
+  neighbor 11: col=11, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=11
+[DEBUG GTP] current=11, neighbors=[12]
+  neighbor 12: col=12, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=12
+[DEBUG GTP] current=12, neighbors=[13]
+  neighbor 13: col=13, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=13
+[DEBUG GTP] current=13, neighbors=[14]
+  neighbor 14: col=14, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=14
+[DEBUG GTP] current=14, neighbors=[15]
+  neighbor 15: col=15, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=15
+[DEBUG GTP] current=15, neighbors=[16]
+  neighbor 16: col=16, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=16
+[DEBUG GTP] current=16, neighbors=[17]
+  neighbor 17: col=17, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=17
+[DEBUG GTP] current=17, neighbors=[18]
+  neighbor 18: col=18, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=18
+[DEBUG GTP] current=18, neighbors=[19]
+  neighbor 19: col=19, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=19
+[DEBUG GTP] current=19, neighbors=[20]
+  neighbor 20: col=20, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=20
+[DEBUG GTP] current=20, neighbors=[21]
+  neighbor 21: col=21, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=21
+[DEBUG GTP] current=21, neighbors=[22]
+  neighbor 22: col=22, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=22
+[DEBUG GTP] current=22, neighbors=[23]
+  neighbor 23: col=23, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=23
+[DEBUG GTP] current=23, neighbors=[24]
+  neighbor 24: col=24, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=24
+[DEBUG GTP] current=24, neighbors=[25]
+  neighbor 25: col=25, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=25
+[DEBUG GTP] current=25, neighbors=[26]
+  neighbor 26: col=26, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=26
+[DEBUG GTP] current=26, neighbors=[27]
+  neighbor 27: col=27, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=27
+[DEBUG GTP] current=27, neighbors=[28]
+  neighbor 28: col=28, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=28
+[DEBUG GTP] === Active Tasks ===
+  Task 4: col=4, y=[1..28], adj=[3, 5]
+  Task 5: col=5, y=[1..28], adj=[4, 6]
+  Task 6: col=6, y=[1..28], adj=[5, 7]
+  Task 7: col=7, y=[1..28], adj=[6, 8]
+  Task 8: col=8, y=[1..28], adj=[7, 9]
+  Task 9: col=9, y=[1..28], adj=[8, 10]
+  Task 10: col=10, y=[1..28], adj=[9, 11]
+  Task 11: col=11, y=[1..28], adj=[10, 12]
+  Task 12: col=12, y=[1..28], adj=[11, 13]
+  Task 13: col=13, y=[1..28], adj=[12, 14]
+  Task 14: col=14, y=[1..28], adj=[13, 15]
+  Task 15: col=15, y=[1..28], adj=[14, 16]
+  Task 16: col=16, y=[1..28], adj=[15, 17]
+  Task 17: col=17, y=[1..28], adj=[16, 18]
+  Task 18: col=18, y=[1..28], adj=[17, 19]
+  Task 19: col=19, y=[1..28], adj=[18, 20]
+  Task 20: col=20, y=[1..28], adj=[19, 21]
+  Task 21: col=21, y=[1..28], adj=[20, 22]
+  Task 22: col=22, y=[1..28], adj=[21, 23]
+  Task 23: col=23, y=[1..28], adj=[22, 24]
+  Task 24: col=24, y=[1..28], adj=[23, 25]
+  Task 25: col=25, y=[1..28], adj=[24, 26]
+  Task 26: col=26, y=[1..28], adj=[25, 27]
+  Task 27: col=27, y=[1..28], adj=[26, 28]
+  Task 28: col=28, y=[1..28], adj=[27, 29]
+[DEBUG GTP] current=4, neighbors=[5]
+  neighbor 5: col=5, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=5
+[DEBUG GTP] current=5, neighbors=[6]
+  neighbor 6: col=6, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=6
+[DEBUG GTP] current=6, neighbors=[7]
+  neighbor 7: col=7, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=7
+[DEBUG GTP] current=7, neighbors=[8]
+  neighbor 8: col=8, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=8
+[DEBUG GTP] current=8, neighbors=[9]
+  neighbor 9: col=9, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=9
+[DEBUG GTP] current=9, neighbors=[10]
+  neighbor 10: col=10, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=10
+[DEBUG GTP] current=10, neighbors=[11]
+  neighbor 11: col=11, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=11
+[DEBUG GTP] current=11, neighbors=[12]
+  neighbor 12: col=12, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=12
+[DEBUG GTP] current=12, neighbors=[13]
+  neighbor 13: col=13, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=13
+[DEBUG GTP] current=13, neighbors=[14]
+  neighbor 14: col=14, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=14
+[DEBUG GTP] current=14, neighbors=[15]
+  neighbor 15: col=15, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=15
+[DEBUG GTP] current=15, neighbors=[16]
+  neighbor 16: col=16, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=16
+[DEBUG GTP] current=16, neighbors=[17]
+  neighbor 17: col=17, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=17
+[DEBUG GTP] current=17, neighbors=[18]
+  neighbor 18: col=18, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=18
+[DEBUG GTP] current=18, neighbors=[19]
+  neighbor 19: col=19, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=19
+[DEBUG GTP] current=19, neighbors=[20]
+  neighbor 20: col=20, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=20
+[DEBUG GTP] current=20, neighbors=[21]
+  neighbor 21: col=21, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=21
+[DEBUG GTP] current=21, neighbors=[22]
+  neighbor 22: col=22, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=22
+[DEBUG GTP] current=22, neighbors=[23]
+  neighbor 23: col=23, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=23
+[DEBUG GTP] current=23, neighbors=[24]
+  neighbor 24: col=24, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=24
+[DEBUG GTP] current=24, neighbors=[25]
+  neighbor 25: col=25, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=25
+[DEBUG GTP] current=25, neighbors=[26]
+  neighbor 26: col=26, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=26
+[DEBUG GTP] current=26, neighbors=[27]
+  neighbor 27: col=27, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=27
+[DEBUG GTP] current=27, neighbors=[28]
+  neighbor 28: col=28, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=28
+[DEBUG GTP] === Active Tasks ===
+  Task 5: col=5, y=[1..28], adj=[4, 6]
+  Task 6: col=6, y=[1..28], adj=[5, 7]
+  Task 7: col=7, y=[1..28], adj=[6, 8]
+  Task 8: col=8, y=[1..28], adj=[7, 9]
+  Task 9: col=9, y=[1..28], adj=[8, 10]
+  Task 10: col=10, y=[1..28], adj=[9, 11]
+  Task 11: col=11, y=[1..28], adj=[10, 12]
+  Task 12: col=12, y=[1..28], adj=[11, 13]
+  Task 13: col=13, y=[1..28], adj=[12, 14]
+  Task 14: col=14, y=[1..28], adj=[13, 15]
+  Task 15: col=15, y=[1..28], adj=[14, 16]
+  Task 16: col=16, y=[1..28], adj=[15, 17]
+  Task 17: col=17, y=[1..28], adj=[16, 18]
+  Task 18: col=18, y=[1..28], adj=[17, 19]
+  Task 19: col=19, y=[1..28], adj=[18, 20]
+  Task 20: col=20, y=[1..28], adj=[19, 21]
+  Task 21: col=21, y=[1..28], adj=[20, 22]
+  Task 22: col=22, y=[1..28], adj=[21, 23]
+  Task 23: col=23, y=[1..28], adj=[22, 24]
+  Task 24: col=24, y=[1..28], adj=[23, 25]
+  Task 25: col=25, y=[1..28], adj=[24, 26]
+  Task 26: col=26, y=[1..28], adj=[25, 27]
+  Task 27: col=27, y=[1..28], adj=[26, 28]
+  Task 28: col=28, y=[1..28], adj=[27, 29]
+[DEBUG GTP] current=5, neighbors=[6]
+  neighbor 6: col=6, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=6
+[DEBUG GTP] current=6, neighbors=[7]
+  neighbor 7: col=7, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=7
+[DEBUG GTP] current=7, neighbors=[8]
+  neighbor 8: col=8, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=8
+[DEBUG GTP] current=8, neighbors=[9]
+  neighbor 9: col=9, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=9
+[DEBUG GTP] current=9, neighbors=[10]
+  neighbor 10: col=10, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=10
+[DEBUG GTP] current=10, neighbors=[11]
+  neighbor 11: col=11, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=11
+[DEBUG GTP] current=11, neighbors=[12]
+  neighbor 12: col=12, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=12
+[DEBUG GTP] current=12, neighbors=[13]
+  neighbor 13: col=13, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=13
+[DEBUG GTP] current=13, neighbors=[14]
+  neighbor 14: col=14, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=14
+[DEBUG GTP] current=14, neighbors=[15]
+  neighbor 15: col=15, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=15
+[DEBUG GTP] current=15, neighbors=[16]
+  neighbor 16: col=16, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=16
+[DEBUG GTP] current=16, neighbors=[17]
+  neighbor 17: col=17, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=17
+[DEBUG GTP] current=17, neighbors=[18]
+  neighbor 18: col=18, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=18
+[DEBUG GTP] current=18, neighbors=[19]
+  neighbor 19: col=19, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=19
+[DEBUG GTP] current=19, neighbors=[20]
+  neighbor 20: col=20, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=20
+[DEBUG GTP] current=20, neighbors=[21]
+  neighbor 21: col=21, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=21
+[DEBUG GTP] current=21, neighbors=[22]
+  neighbor 22: col=22, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=22
+[DEBUG GTP] current=22, neighbors=[23]
+  neighbor 23: col=23, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=23
+[DEBUG GTP] current=23, neighbors=[24]
+  neighbor 24: col=24, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=24
+[DEBUG GTP] current=24, neighbors=[25]
+  neighbor 25: col=25, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=25
+[DEBUG GTP] current=25, neighbors=[26]
+  neighbor 26: col=26, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=26
+[DEBUG GTP] current=26, neighbors=[27]
+  neighbor 27: col=27, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=27
+[DEBUG GTP] current=27, neighbors=[28]
+  neighbor 28: col=28, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=28
+[DEBUG GTP] === Active Tasks ===
+  Task 6: col=6, y=[1..28], adj=[5, 7]
+  Task 7: col=7, y=[1..28], adj=[6, 8]
+  Task 8: col=8, y=[1..28], adj=[7, 9]
+  Task 9: col=9, y=[1..28], adj=[8, 10]
+  Task 10: col=10, y=[1..28], adj=[9, 11]
+  Task 11: col=11, y=[1..28], adj=[10, 12]
+  Task 12: col=12, y=[1..28], adj=[11, 13]
+  Task 13: col=13, y=[1..28], adj=[12, 14]
+  Task 14: col=14, y=[1..28], adj=[13, 15]
+  Task 15: col=15, y=[1..28], adj=[14, 16]
+  Task 16: col=16, y=[1..28], adj=[15, 17]
+  Task 17: col=17, y=[1..28], adj=[16, 18]
+  Task 18: col=18, y=[1..28], adj=[17, 19]
+  Task 19: col=19, y=[1..28], adj=[18, 20]
+  Task 20: col=20, y=[1..28], adj=[19, 21]
+  Task 21: col=21, y=[1..28], adj=[20, 22]
+  Task 22: col=22, y=[1..28], adj=[21, 23]
+  Task 23: col=23, y=[1..28], adj=[22, 24]
+  Task 24: col=24, y=[1..28], adj=[23, 25]
+  Task 25: col=25, y=[1..28], adj=[24, 26]
+  Task 26: col=26, y=[1..28], adj=[25, 27]
+  Task 27: col=27, y=[1..28], adj=[26, 28]
+  Task 28: col=28, y=[1..28], adj=[27, 29]
+[DEBUG GTP] current=6, neighbors=[7]
+  neighbor 7: col=7, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=7
+[DEBUG GTP] current=7, neighbors=[8]
+  neighbor 8: col=8, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=8
+[DEBUG GTP] current=8, neighbors=[9]
+  neighbor 9: col=9, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=9
+[DEBUG GTP] current=9, neighbors=[10]
+  neighbor 10: col=10, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=10
+[DEBUG GTP] current=10, neighbors=[11]
+  neighbor 11: col=11, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=11
+[DEBUG GTP] current=11, neighbors=[12]
+  neighbor 12: col=12, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=12
+[DEBUG GTP] current=12, neighbors=[13]
+  neighbor 13: col=13, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=13
+[DEBUG GTP] current=13, neighbors=[14]
+  neighbor 14: col=14, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=14
+[DEBUG GTP] current=14, neighbors=[15]
+  neighbor 15: col=15, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=15
+[DEBUG GTP] current=15, neighbors=[16]
+  neighbor 16: col=16, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=16
+[DEBUG GTP] current=16, neighbors=[17]
+  neighbor 17: col=17, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=17
+[DEBUG GTP] current=17, neighbors=[18]
+  neighbor 18: col=18, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=18
+[DEBUG GTP] current=18, neighbors=[19]
+  neighbor 19: col=19, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=19
+[DEBUG GTP] current=19, neighbors=[20]
+  neighbor 20: col=20, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=20
+[DEBUG GTP] current=20, neighbors=[21]
+  neighbor 21: col=21, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=21
+[DEBUG GTP] current=21, neighbors=[22]
+  neighbor 22: col=22, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=22
+[DEBUG GTP] current=22, neighbors=[23]
+  neighbor 23: col=23, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=23
+[DEBUG GTP] current=23, neighbors=[24]
+  neighbor 24: col=24, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=24
+[DEBUG GTP] current=24, neighbors=[25]
+  neighbor 25: col=25, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=25
+[DEBUG GTP] current=25, neighbors=[26]
+  neighbor 26: col=26, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=26
+[DEBUG GTP] current=26, neighbors=[27]
+  neighbor 27: col=27, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=27
+[DEBUG GTP] current=27, neighbors=[28]
+  neighbor 28: col=28, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=28
+[DEBUG GTP] === Active Tasks ===
+  Task 7: col=7, y=[1..28], adj=[6, 8]
+  Task 8: col=8, y=[1..28], adj=[7, 9]
+  Task 9: col=9, y=[1..28], adj=[8, 10]
+  Task 10: col=10, y=[1..28], adj=[9, 11]
+  Task 11: col=11, y=[1..28], adj=[10, 12]
+  Task 12: col=12, y=[1..28], adj=[11, 13]
+  Task 13: col=13, y=[1..28], adj=[12, 14]
+  Task 14: col=14, y=[1..28], adj=[13, 15]
+  Task 15: col=15, y=[1..28], adj=[14, 16]
+  Task 16: col=16, y=[1..28], adj=[15, 17]
+  Task 17: col=17, y=[1..28], adj=[16, 18]
+  Task 18: col=18, y=[1..28], adj=[17, 19]
+  Task 19: col=19, y=[1..28], adj=[18, 20]
+  Task 20: col=20, y=[1..28], adj=[19, 21]
+  Task 21: col=21, y=[1..28], adj=[20, 22]
+  Task 22: col=22, y=[1..28], adj=[21, 23]
+  Task 23: col=23, y=[1..28], adj=[22, 24]
+  Task 24: col=24, y=[1..28], adj=[23, 25]
+  Task 25: col=25, y=[1..28], adj=[24, 26]
+  Task 26: col=26, y=[1..28], adj=[25, 27]
+  Task 27: col=27, y=[1..28], adj=[26, 28]
+  Task 28: col=28, y=[1..28], adj=[27, 29]
+[DEBUG GTP] current=7, neighbors=[8]
+  neighbor 8: col=8, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=8
+[DEBUG GTP] current=8, neighbors=[9]
+  neighbor 9: col=9, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=9
+[DEBUG GTP] current=9, neighbors=[10]
+  neighbor 10: col=10, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=10
+[DEBUG GTP] current=10, neighbors=[11]
+  neighbor 11: col=11, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=11
+[DEBUG GTP] current=11, neighbors=[12]
+  neighbor 12: col=12, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=12
+[DEBUG GTP] current=12, neighbors=[13]
+  neighbor 13: col=13, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=13
+[DEBUG GTP] current=13, neighbors=[14]
+  neighbor 14: col=14, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=14
+[DEBUG GTP] current=14, neighbors=[15]
+  neighbor 15: col=15, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=15
+[DEBUG GTP] current=15, neighbors=[16]
+  neighbor 16: col=16, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=16
+[DEBUG GTP] current=16, neighbors=[17]
+  neighbor 17: col=17, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=17
+[DEBUG GTP] current=17, neighbors=[18]
+  neighbor 18: col=18, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=18
+[DEBUG GTP] current=18, neighbors=[19]
+  neighbor 19: col=19, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=19
+[DEBUG GTP] current=19, neighbors=[20]
+  neighbor 20: col=20, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=20
+[DEBUG GTP] current=20, neighbors=[21]
+  neighbor 21: col=21, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=21
+[DEBUG GTP] current=21, neighbors=[22]
+  neighbor 22: col=22, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=22
+[DEBUG GTP] current=22, neighbors=[23]
+  neighbor 23: col=23, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=23
+[DEBUG GTP] current=23, neighbors=[24]
+  neighbor 24: col=24, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=24
+[DEBUG GTP] current=24, neighbors=[25]
+  neighbor 25: col=25, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=25
+[DEBUG GTP] current=25, neighbors=[26]
+  neighbor 26: col=26, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=26
+[DEBUG GTP] current=26, neighbors=[27]
+  neighbor 27: col=27, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=27
+[DEBUG GTP] current=27, neighbors=[28]
+  neighbor 28: col=28, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=28
+[DEBUG GTP] === Active Tasks ===
+  Task 8: col=8, y=[1..28], adj=[7, 9]
+  Task 9: col=9, y=[1..28], adj=[8, 10]
+  Task 10: col=10, y=[1..28], adj=[9, 11]
+  Task 11: col=11, y=[1..28], adj=[10, 12]
+  Task 12: col=12, y=[1..28], adj=[11, 13]
+  Task 13: col=13, y=[1..28], adj=[12, 14]
+  Task 14: col=14, y=[1..28], adj=[13, 15]
+  Task 15: col=15, y=[1..28], adj=[14, 16]
+  Task 16: col=16, y=[1..28], adj=[15, 17]
+  Task 17: col=17, y=[1..28], adj=[16, 18]
+  Task 18: col=18, y=[1..28], adj=[17, 19]
+  Task 19: col=19, y=[1..28], adj=[18, 20]
+  Task 20: col=20, y=[1..28], adj=[19, 21]
+  Task 21: col=21, y=[1..28], adj=[20, 22]
+  Task 22: col=22, y=[1..28], adj=[21, 23]
+  Task 23: col=23, y=[1..28], adj=[22, 24]
+  Task 24: col=24, y=[1..28], adj=[23, 25]
+  Task 25: col=25, y=[1..28], adj=[24, 26]
+  Task 26: col=26, y=[1..28], adj=[25, 27]
+  Task 27: col=27, y=[1..28], adj=[26, 28]
+  Task 28: col=28, y=[1..28], adj=[27, 29]
+[DEBUG GTP] current=8, neighbors=[9]
+  neighbor 9: col=9, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=9
+[DEBUG GTP] current=9, neighbors=[10]
+  neighbor 10: col=10, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=10
+[DEBUG GTP] current=10, neighbors=[11]
+  neighbor 11: col=11, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=11
+[DEBUG GTP] current=11, neighbors=[12]
+  neighbor 12: col=12, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=12
+[DEBUG GTP] current=12, neighbors=[13]
+  neighbor 13: col=13, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=13
+[DEBUG GTP] current=13, neighbors=[14]
+  neighbor 14: col=14, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=14
+[DEBUG GTP] current=14, neighbors=[15]
+  neighbor 15: col=15, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=15
+[DEBUG GTP] current=15, neighbors=[16]
+  neighbor 16: col=16, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=16
+[DEBUG GTP] current=16, neighbors=[17]
+  neighbor 17: col=17, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=17
+[DEBUG GTP] current=17, neighbors=[18]
+  neighbor 18: col=18, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=18
+[DEBUG GTP] current=18, neighbors=[19]
+  neighbor 19: col=19, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=19
+[DEBUG GTP] current=19, neighbors=[20]
+  neighbor 20: col=20, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=20
+[DEBUG GTP] current=20, neighbors=[21]
+  neighbor 21: col=21, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=21
+[DEBUG GTP] current=21, neighbors=[22]
+  neighbor 22: col=22, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=22
+[DEBUG GTP] current=22, neighbors=[23]
+  neighbor 23: col=23, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=23
+[DEBUG GTP] current=23, neighbors=[24]
+  neighbor 24: col=24, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=24
+[DEBUG GTP] current=24, neighbors=[25]
+  neighbor 25: col=25, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=25
+[DEBUG GTP] current=25, neighbors=[26]
+  neighbor 26: col=26, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=26
+[DEBUG GTP] current=26, neighbors=[27]
+  neighbor 27: col=27, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=27
+[DEBUG GTP] current=27, neighbors=[28]
+  neighbor 28: col=28, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=28
+进阶条件
+调用了绕障算法
+成功进入障碍边界检测，第1个格子: 8 24
+成功进入障碍边界检测，第2个格子: 8 23
+成功进入障碍边界检测，第3个格子: 8 22
+成功进入障碍边界检测，第4个格子: 8 21
+成功进入障碍边界检测，第5个格子: 9 21
+成功进入障碍边界检测，第6个格子: 10 21
+成功进入障碍边界检测，第7个格子: 11 21
+成功进入障碍边界检测，第8个格子: 12 21
+成功进入障碍边界检测，第9个格子: 12 22
+成功进入障碍边界检测，第10个格子: 12 23
+成功进入障碍边界检测，第11个格子: 12 24
+成功进入障碍边界检测，第12个格子: 12 25
+成功进入障碍边界检测，第13个格子: 11 25
+成功进入障碍边界检测，第14个格子: 10 25
+成功进入障碍边界检测，第15个格子: 9 25
+[DEBUG GTP] === Active Tasks ===
+  Task 8: col=8, y=[1..20], adj=[7, 30]
+  Task 30: col=9, y=[1..20], adj=[8, 32]
+  Task 31: col=9, y=[26..28], adj=[34]
+  Task 32: col=10, y=[1..20], adj=[30, 35]
+  Task 33: col=10, y=[23..23], adj=[]
+  Task 34: col=10, y=[26..28], adj=[31, 36]
+  Task 35: col=11, y=[1..20], adj=[32, 37]
+  Task 36: col=11, y=[26..28], adj=[34, 38]
+  Task 37: col=12, y=[1..20], adj=[35, 13]
+  Task 38: col=12, y=[26..28], adj=[36, 13]
+  Task 13: col=13, y=[1..28], adj=[37, 38, 14]
+  Task 14: col=14, y=[1..28], adj=[13, 15]
+  Task 15: col=15, y=[1..28], adj=[14, 16]
+  Task 16: col=16, y=[1..28], adj=[15, 17]
+  Task 17: col=17, y=[1..28], adj=[16, 18]
+  Task 18: col=18, y=[1..28], adj=[17, 19]
+  Task 19: col=19, y=[1..28], adj=[18, 20]
+  Task 20: col=20, y=[1..28], adj=[19, 21]
+  Task 21: col=21, y=[1..28], adj=[20, 22]
+  Task 22: col=22, y=[1..28], adj=[21, 23]
+  Task 23: col=23, y=[1..28], adj=[22, 24]
+  Task 24: col=24, y=[1..28], adj=[23, 25]
+  Task 25: col=25, y=[1..28], adj=[24, 26]
+  Task 26: col=26, y=[1..28], adj=[25, 27]
+  Task 27: col=27, y=[1..28], adj=[26, 28]
+  Task 28: col=28, y=[1..28], adj=[27, 29]
+[DEBUG GTP] current=31, neighbors=[34]
+  neighbor 34: col=10, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=34
+[DEBUG GTP] current=34, neighbors=[36]
+  neighbor 36: col=11, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=36
+[DEBUG GTP] current=36, neighbors=[38]
+  neighbor 38: col=12, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=38
+[DEBUG GTP] current=38, neighbors=[13]
+  neighbor 13: col=13, brim_dist=6, col_dist=1, is_brim=False
+[DEBUG GTP] chose next_id=13
+[DEBUG GTP] current=13, neighbors=[37, 14]
+  neighbor 37: col=12, brim_dist=0, col_dist=1, is_brim=True
+  neighbor 14: col=14, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=37
+[DEBUG GTP] current=37, neighbors=[35]
+  neighbor 35: col=11, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=35
+[DEBUG GTP] current=35, neighbors=[32]
+  neighbor 32: col=10, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=32
+[DEBUG GTP] current=32, neighbors=[30]
+  neighbor 30: col=9, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=30
+[DEBUG GTP] current=30, neighbors=[8]
+  neighbor 8: col=8, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=8
+[DEBUG GTP] current=14, neighbors=[15]
+  neighbor 15: col=15, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=15
+[DEBUG GTP] current=15, neighbors=[16]
+  neighbor 16: col=16, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=16
+[DEBUG GTP] current=16, neighbors=[17]
+  neighbor 17: col=17, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=17
+[DEBUG GTP] current=17, neighbors=[18]
+  neighbor 18: col=18, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=18
+[DEBUG GTP] current=18, neighbors=[19]
+  neighbor 19: col=19, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=19
+[DEBUG GTP] current=19, neighbors=[20]
+  neighbor 20: col=20, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=20
+[DEBUG GTP] current=20, neighbors=[21]
+  neighbor 21: col=21, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=21
+[DEBUG GTP] current=21, neighbors=[22]
+  neighbor 22: col=22, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=22
+[DEBUG GTP] current=22, neighbors=[23]
+  neighbor 23: col=23, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=23
+[DEBUG GTP] current=23, neighbors=[24]
+  neighbor 24: col=24, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=24
+[DEBUG GTP] current=24, neighbors=[25]
+  neighbor 25: col=25, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=25
+[DEBUG GTP] current=25, neighbors=[26]
+  neighbor 26: col=26, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=26
+[DEBUG GTP] current=26, neighbors=[27]
+  neighbor 27: col=27, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=27
+[DEBUG GTP] current=27, neighbors=[28]
+  neighbor 28: col=28, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=28
+[DEBUG GTP] === Active Tasks ===
+  Task 8: col=8, y=[1..20], adj=[7, 30]
+  Task 30: col=9, y=[1..20], adj=[8, 32]
+  Task 32: col=10, y=[1..20], adj=[30, 35]
+  Task 33: col=10, y=[23..23], adj=[]
+  Task 34: col=10, y=[26..28], adj=[31, 36]
+  Task 35: col=11, y=[1..20], adj=[32, 37]
+  Task 36: col=11, y=[26..28], adj=[34, 38]
+  Task 37: col=12, y=[1..20], adj=[35, 13]
+  Task 38: col=12, y=[26..28], adj=[36, 13]
+  Task 13: col=13, y=[1..28], adj=[37, 38, 14]
+  Task 14: col=14, y=[1..28], adj=[13, 15]
+  Task 15: col=15, y=[1..28], adj=[14, 16]
+  Task 16: col=16, y=[1..28], adj=[15, 17]
+  Task 17: col=17, y=[1..28], adj=[16, 18]
+  Task 18: col=18, y=[1..28], adj=[17, 19]
+  Task 19: col=19, y=[1..28], adj=[18, 20]
+  Task 20: col=20, y=[1..28], adj=[19, 21]
+  Task 21: col=21, y=[1..28], adj=[20, 22]
+  Task 22: col=22, y=[1..28], adj=[21, 23]
+  Task 23: col=23, y=[1..28], adj=[22, 24]
+  Task 24: col=24, y=[1..28], adj=[23, 25]
+  Task 25: col=25, y=[1..28], adj=[24, 26]
+  Task 26: col=26, y=[1..28], adj=[25, 27]
+  Task 27: col=27, y=[1..28], adj=[26, 28]
+  Task 28: col=28, y=[1..28], adj=[27, 29]
+[DEBUG GTP] current=34, neighbors=[36]
+  neighbor 36: col=11, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=36
+[DEBUG GTP] current=36, neighbors=[38]
+  neighbor 38: col=12, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=38
+[DEBUG GTP] current=38, neighbors=[13]
+  neighbor 13: col=13, brim_dist=6, col_dist=1, is_brim=False
+[DEBUG GTP] chose next_id=13
+[DEBUG GTP] current=13, neighbors=[37, 14]
+  neighbor 37: col=12, brim_dist=0, col_dist=1, is_brim=True
+  neighbor 14: col=14, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=37
+[DEBUG GTP] current=37, neighbors=[35]
+  neighbor 35: col=11, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=35
+[DEBUG GTP] current=35, neighbors=[32]
+  neighbor 32: col=10, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=32
+[DEBUG GTP] current=32, neighbors=[30]
+  neighbor 30: col=9, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=30
+[DEBUG GTP] current=30, neighbors=[8]
+  neighbor 8: col=8, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=8
+[DEBUG GTP] current=14, neighbors=[15]
+  neighbor 15: col=15, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=15
+[DEBUG GTP] current=15, neighbors=[16]
+  neighbor 16: col=16, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=16
+[DEBUG GTP] current=16, neighbors=[17]
+  neighbor 17: col=17, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=17
+[DEBUG GTP] current=17, neighbors=[18]
+  neighbor 18: col=18, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=18
+[DEBUG GTP] current=18, neighbors=[19]
+  neighbor 19: col=19, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=19
+[DEBUG GTP] current=19, neighbors=[20]
+  neighbor 20: col=20, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=20
+[DEBUG GTP] current=20, neighbors=[21]
+  neighbor 21: col=21, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=21
+[DEBUG GTP] current=21, neighbors=[22]
+  neighbor 22: col=22, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=22
+[DEBUG GTP] current=22, neighbors=[23]
+  neighbor 23: col=23, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=23
+[DEBUG GTP] current=23, neighbors=[24]
+  neighbor 24: col=24, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=24
+[DEBUG GTP] current=24, neighbors=[25]
+  neighbor 25: col=25, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=25
+[DEBUG GTP] current=25, neighbors=[26]
+  neighbor 26: col=26, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=26
+[DEBUG GTP] current=26, neighbors=[27]
+  neighbor 27: col=27, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=27
+[DEBUG GTP] current=27, neighbors=[28]
+  neighbor 28: col=28, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=28
+[DEBUG GTP] === Active Tasks ===
+  Task 8: col=8, y=[1..20], adj=[7, 30]
+  Task 30: col=9, y=[1..20], adj=[8, 32]
+  Task 32: col=10, y=[1..20], adj=[30, 35]
+  Task 33: col=10, y=[23..23], adj=[]
+  Task 35: col=11, y=[1..20], adj=[32, 37]
+  Task 36: col=11, y=[26..28], adj=[34, 38]
+  Task 37: col=12, y=[1..20], adj=[35, 13]
+  Task 38: col=12, y=[26..28], adj=[36, 13]
+  Task 13: col=13, y=[1..28], adj=[37, 38, 14]
+  Task 14: col=14, y=[1..28], adj=[13, 15]
+  Task 15: col=15, y=[1..28], adj=[14, 16]
+  Task 16: col=16, y=[1..28], adj=[15, 17]
+  Task 17: col=17, y=[1..28], adj=[16, 18]
+  Task 18: col=18, y=[1..28], adj=[17, 19]
+  Task 19: col=19, y=[1..28], adj=[18, 20]
+  Task 20: col=20, y=[1..28], adj=[19, 21]
+  Task 21: col=21, y=[1..28], adj=[20, 22]
+  Task 22: col=22, y=[1..28], adj=[21, 23]
+  Task 23: col=23, y=[1..28], adj=[22, 24]
+  Task 24: col=24, y=[1..28], adj=[23, 25]
+  Task 25: col=25, y=[1..28], adj=[24, 26]
+  Task 26: col=26, y=[1..28], adj=[25, 27]
+  Task 27: col=27, y=[1..28], adj=[26, 28]
+  Task 28: col=28, y=[1..28], adj=[27, 29]
+[DEBUG GTP] current=36, neighbors=[38]
+  neighbor 38: col=12, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=38
+[DEBUG GTP] current=38, neighbors=[13]
+  neighbor 13: col=13, brim_dist=6, col_dist=1, is_brim=False
+[DEBUG GTP] chose next_id=13
+[DEBUG GTP] current=13, neighbors=[37, 14]
+  neighbor 37: col=12, brim_dist=0, col_dist=1, is_brim=True
+  neighbor 14: col=14, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=37
+[DEBUG GTP] current=37, neighbors=[35]
+  neighbor 35: col=11, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=35
+[DEBUG GTP] current=35, neighbors=[32]
+  neighbor 32: col=10, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=32
+[DEBUG GTP] current=32, neighbors=[30]
+  neighbor 30: col=9, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=30
+[DEBUG GTP] current=30, neighbors=[8]
+  neighbor 8: col=8, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=8
+[DEBUG GTP] current=14, neighbors=[15]
+  neighbor 15: col=15, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=15
+[DEBUG GTP] current=15, neighbors=[16]
+  neighbor 16: col=16, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=16
+[DEBUG GTP] current=16, neighbors=[17]
+  neighbor 17: col=17, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=17
+[DEBUG GTP] current=17, neighbors=[18]
+  neighbor 18: col=18, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=18
+[DEBUG GTP] current=18, neighbors=[19]
+  neighbor 19: col=19, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=19
+[DEBUG GTP] current=19, neighbors=[20]
+  neighbor 20: col=20, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=20
+[DEBUG GTP] current=20, neighbors=[21]
+  neighbor 21: col=21, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=21
+[DEBUG GTP] current=21, neighbors=[22]
+  neighbor 22: col=22, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=22
+[DEBUG GTP] current=22, neighbors=[23]
+  neighbor 23: col=23, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=23
+[DEBUG GTP] current=23, neighbors=[24]
+  neighbor 24: col=24, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=24
+[DEBUG GTP] current=24, neighbors=[25]
+  neighbor 25: col=25, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=25
+[DEBUG GTP] current=25, neighbors=[26]
+  neighbor 26: col=26, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=26
+[DEBUG GTP] current=26, neighbors=[27]
+  neighbor 27: col=27, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=27
+[DEBUG GTP] current=27, neighbors=[28]
+  neighbor 28: col=28, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=28
+[DEBUG GTP] === Active Tasks ===
+  Task 8: col=8, y=[1..20], adj=[7, 30]
+  Task 30: col=9, y=[1..20], adj=[8, 32]
+  Task 32: col=10, y=[1..20], adj=[30, 35]
+  Task 33: col=10, y=[23..23], adj=[]
+  Task 35: col=11, y=[1..20], adj=[32, 37]
+  Task 37: col=12, y=[1..20], adj=[35, 13]
+  Task 38: col=12, y=[26..28], adj=[36, 13]
+  Task 13: col=13, y=[1..28], adj=[37, 38, 14]
+  Task 14: col=14, y=[1..28], adj=[13, 15]
+  Task 15: col=15, y=[1..28], adj=[14, 16]
+  Task 16: col=16, y=[1..28], adj=[15, 17]
+  Task 17: col=17, y=[1..28], adj=[16, 18]
+  Task 18: col=18, y=[1..28], adj=[17, 19]
+  Task 19: col=19, y=[1..28], adj=[18, 20]
+  Task 20: col=20, y=[1..28], adj=[19, 21]
+  Task 21: col=21, y=[1..28], adj=[20, 22]
+  Task 22: col=22, y=[1..28], adj=[21, 23]
+  Task 23: col=23, y=[1..28], adj=[22, 24]
+  Task 24: col=24, y=[1..28], adj=[23, 25]
+  Task 25: col=25, y=[1..28], adj=[24, 26]
+  Task 26: col=26, y=[1..28], adj=[25, 27]
+  Task 27: col=27, y=[1..28], adj=[26, 28]
+  Task 28: col=28, y=[1..28], adj=[27, 29]
+[DEBUG GTP] current=38, neighbors=[13]
+  neighbor 13: col=13, brim_dist=6, col_dist=1, is_brim=False
+[DEBUG GTP] chose next_id=13
+[DEBUG GTP] current=13, neighbors=[37, 14]
+  neighbor 37: col=12, brim_dist=0, col_dist=1, is_brim=True
+  neighbor 14: col=14, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=37
+[DEBUG GTP] current=37, neighbors=[35]
+  neighbor 35: col=11, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=35
+[DEBUG GTP] current=35, neighbors=[32]
+  neighbor 32: col=10, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=32
+[DEBUG GTP] current=32, neighbors=[30]
+  neighbor 30: col=9, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=30
+[DEBUG GTP] current=30, neighbors=[8]
+  neighbor 8: col=8, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=8
+[DEBUG GTP] current=14, neighbors=[15]
+  neighbor 15: col=15, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=15
+[DEBUG GTP] current=15, neighbors=[16]
+  neighbor 16: col=16, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=16
+[DEBUG GTP] current=16, neighbors=[17]
+  neighbor 17: col=17, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=17
+[DEBUG GTP] current=17, neighbors=[18]
+  neighbor 18: col=18, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=18
+[DEBUG GTP] current=18, neighbors=[19]
+  neighbor 19: col=19, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=19
+[DEBUG GTP] current=19, neighbors=[20]
+  neighbor 20: col=20, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=20
+[DEBUG GTP] current=20, neighbors=[21]
+  neighbor 21: col=21, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=21
+[DEBUG GTP] current=21, neighbors=[22]
+  neighbor 22: col=22, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=22
+[DEBUG GTP] current=22, neighbors=[23]
+  neighbor 23: col=23, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=23
+[DEBUG GTP] current=23, neighbors=[24]
+  neighbor 24: col=24, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=24
+[DEBUG GTP] current=24, neighbors=[25]
+  neighbor 25: col=25, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=25
+[DEBUG GTP] current=25, neighbors=[26]
+  neighbor 26: col=26, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=26
+[DEBUG GTP] current=26, neighbors=[27]
+  neighbor 27: col=27, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=27
+[DEBUG GTP] current=27, neighbors=[28]
+  neighbor 28: col=28, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=28
+[DEBUG GTP] === Active Tasks ===
+  Task 8: col=8, y=[1..20], adj=[7, 30]
+  Task 30: col=9, y=[1..20], adj=[8, 32]
+  Task 32: col=10, y=[1..20], adj=[30, 35]
+  Task 33: col=10, y=[23..23], adj=[]
+  Task 35: col=11, y=[1..20], adj=[32, 37]
+  Task 37: col=12, y=[1..20], adj=[35, 13]
+  Task 13: col=13, y=[1..28], adj=[37, 38, 14]
+  Task 14: col=14, y=[1..28], adj=[13, 15]
+  Task 15: col=15, y=[1..28], adj=[14, 16]
+  Task 16: col=16, y=[1..28], adj=[15, 17]
+  Task 17: col=17, y=[1..28], adj=[16, 18]
+  Task 18: col=18, y=[1..28], adj=[17, 19]
+  Task 19: col=19, y=[1..28], adj=[18, 20]
+  Task 20: col=20, y=[1..28], adj=[19, 21]
+  Task 21: col=21, y=[1..28], adj=[20, 22]
+  Task 22: col=22, y=[1..28], adj=[21, 23]
+  Task 23: col=23, y=[1..28], adj=[22, 24]
+  Task 24: col=24, y=[1..28], adj=[23, 25]
+  Task 25: col=25, y=[1..28], adj=[24, 26]
+  Task 26: col=26, y=[1..28], adj=[25, 27]
+  Task 27: col=27, y=[1..28], adj=[26, 28]
+  Task 28: col=28, y=[1..28], adj=[27, 29]
+[DEBUG GTP] current=13, neighbors=[37, 14]
+  neighbor 37: col=12, brim_dist=0, col_dist=1, is_brim=True
+  neighbor 14: col=14, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=37
+[DEBUG GTP] current=37, neighbors=[35]
+  neighbor 35: col=11, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=35
+[DEBUG GTP] current=35, neighbors=[32]
+  neighbor 32: col=10, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=32
+[DEBUG GTP] current=32, neighbors=[30]
+  neighbor 30: col=9, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=30
+[DEBUG GTP] current=30, neighbors=[8]
+  neighbor 8: col=8, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=8
+[DEBUG GTP] current=14, neighbors=[15]
+  neighbor 15: col=15, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=15
+[DEBUG GTP] current=15, neighbors=[16]
+  neighbor 16: col=16, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=16
+[DEBUG GTP] current=16, neighbors=[17]
+  neighbor 17: col=17, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=17
+[DEBUG GTP] current=17, neighbors=[18]
+  neighbor 18: col=18, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=18
+[DEBUG GTP] current=18, neighbors=[19]
+  neighbor 19: col=19, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=19
+[DEBUG GTP] current=19, neighbors=[20]
+  neighbor 20: col=20, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=20
+[DEBUG GTP] current=20, neighbors=[21]
+  neighbor 21: col=21, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=21
+[DEBUG GTP] current=21, neighbors=[22]
+  neighbor 22: col=22, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=22
+[DEBUG GTP] current=22, neighbors=[23]
+  neighbor 23: col=23, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=23
+[DEBUG GTP] current=23, neighbors=[24]
+  neighbor 24: col=24, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=24
+[DEBUG GTP] current=24, neighbors=[25]
+  neighbor 25: col=25, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=25
+[DEBUG GTP] current=25, neighbors=[26]
+  neighbor 26: col=26, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=26
+[DEBUG GTP] current=26, neighbors=[27]
+  neighbor 27: col=27, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=27
+[DEBUG GTP] current=27, neighbors=[28]
+  neighbor 28: col=28, brim_dist=0, col_dist=1, is_brim=True
+[DEBUG GTP] chose next_id=28
+[DEBUG] Global Tour IDs: [38, 13, 37, 35, 32, 30, 8, 7, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28]
+[DEBUG] Task 13 adj: [37, 38, 14]
+Coverage complete after 212 steps!
+
+Final coverage: 40.78% (343/841)
+Path length: 346
+Local extremums: 0
+Computation time: 0.684s
+CTS cells: 35
+Plot saved to results/single_test.png
+Direction plot saved to results/single_test_direction.png
+Cells plot saved to results/single_test_cells.png

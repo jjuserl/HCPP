@@ -1,0 +1,30 @@
+{
+  "HCPP": {
+    "coverage_ratio": 0.7026119947468262,
+    "path_length": 6001,
+    "local_extremums": 0,
+    "computation_time": 17.025006532669067,
+    "wall_time": 17.036231994628906
+  },
+  "BSA": {
+    "coverage_ratio": 0.861374580475704,
+    "path_length": 6001,
+    "local_extremums": 0,
+    "computation_time": 4.505662679672241,
+    "wall_time": 4.510667324066162
+  },
+  "SP2E": {
+    "coverage_ratio": 0.8196410331241792,
+    "path_length": 5713,
+    "local_extremums": 384,
+    "computation_time": 4.599824905395508,
+    "wall_time": 4.606403827667236
+  },
+  "Epsilon*": {
+    "coverage_ratio": 0.7935210856559172,
+    "path_length": 6001,
+    "local_extremums": 0,
+    "computation_time": 9.217860698699951,
+    "wall_time": 9.224868297576904
+  }
+}

@@ -1,0 +1,24 @@
+﻿Start: (1, 15), r=3, row_step=6
+Mode: LINE, line_dy: 1
+Map: 30x30
+Non-obstacle: 799
+Step 0: pos=(1,16) mode=LINE dy=1 FREE=317 COV=6 stuck=0
+Step 1: pos=(1,17) mode=LINE dy=1 FREE=314 COV=11 stuck=0
+Step 2: pos=(1,18) mode=LINE dy=1 FREE=311 COV=16 stuck=0
+Step 3: pos=(1,19) mode=LINE dy=1 FREE=308 COV=21 stuck=0
+Step 4: pos=(1,20) mode=LINE dy=1 FREE=305 COV=26 stuck=0
+Step 5: pos=(1,21) mode=LINE dy=1 FREE=302 COV=31 stuck=0
+Step 6: pos=(1,22) mode=LINE dy=1 FREE=299 COV=36 stuck=0
+Step 7: pos=(1,23) mode=LINE dy=1 FREE=296 COV=41 stuck=0
+Step 8: pos=(1,24) mode=LINE dy=1 FREE=293 COV=46 stuck=0
+Step 9: pos=(1,25) mode=LINE dy=1 FREE=290 COV=51 stuck=0
+Step 10: pos=(1,26) mode=LINE dy=1 FREE=286 COV=56 stuck=0
+Step 11: pos=(1,27) mode=LINE dy=1 FREE=282 COV=61 stuck=0
+Step 12: pos=(1,28) mode=LINE dy=1 FREE=277 COV=66 stuck=0
+Step 13: pos=(1,29) mode=LINE dy=1 FREE=272 COV=71 stuck=0
+Step 14: pos=(1,28) mode=TRANSITION dy=1 FREE=268 COV=75 stuck=0
+Step 20: pos=(1,23) mode=TRANSITION dy=1 FREE=268 COV=75 stuck=0
+Step 30: pos=(3,13) mode=TRANSITION dy=1 FREE=271 COV=77 stuck=0
+Step 40: pos=(3,3) mode=TRANSITION dy=1 FREE=301 COV=87 stuck=0
+
+Final: FREE=305 COV=94 ratio=23.56% path=51

@@ -1,0 +1,338 @@
+{
+  "Scenario1_Random": {
+    "HCPP": {
+      "coverage_ratio": 0.4595300261096606,
+      "path_length": 203,
+      "local_extremums": 0,
+      "computation_time": 15.365618467330933,
+      "num_turns": 11,
+      "wall_time": 15.353778839111328
+    },
+    "BSA": {
+      "coverage_ratio": 0.8459530026109661,
+      "path_length": 30001,
+      "local_extremums": 0,
+      "computation_time": 1.1980557441711426,
+      "num_turns": 2210,
+      "wall_time": 1.213564395904541
+    },
+    "FS-STC": {
+      "coverage_ratio": 0.3185378590078329,
+      "path_length": 269,
+      "local_extremums": 301,
+      "computation_time": 0.032509803771972656,
+      "num_turns": 20,
+      "wall_time": 0.05551958084106445
+    },
+    "SP2E": {
+      "coverage_ratio": 0.8459530026109661,
+      "path_length": 30001,
+      "local_extremums": 0,
+      "computation_time": 1.2190759181976318,
+      "num_turns": 2210,
+      "wall_time": 1.2340888977050781
+    },
+    "Epsilon*": {
+      "coverage_ratio": 0.7519582245430809,
+      "path_length": 28763,
+      "local_extremums": 1857,
+      "computation_time": 22.951673984527588,
+      "num_turns": 1385,
+      "wall_time": 22.978199243545532
+    }
+  },
+  "Scenario2_Sparse": {
+    "HCPP": {
+      "coverage_ratio": 1.64,
+      "path_length": 57,
+      "local_extremums": 0,
+      "computation_time": 11.524518251419067,
+      "num_turns": 10,
+      "wall_time": 11.541033267974854
+    },
+    "BSA": {
+      "coverage_ratio": 0.04,
+      "path_length": 30001,
+      "local_extremums": 0,
+      "computation_time": 1.2351617813110352,
+      "num_turns": 5454,
+      "wall_time": 1.2526726722717285
+    },
+    "FS-STC": {
+      "coverage_ratio": 0.04,
+      "path_length": 49,
+      "local_extremums": 301,
+      "computation_time": 0.01893782615661621,
+      "num_turns": 11,
+      "wall_time": 0.02100372314453125
+    },
+    "SP2E": {
+      "coverage_ratio": 0.04,
+      "path_length": 30001,
+      "local_extremums": 0,
+      "computation_time": 1.1108746528625488,
+      "num_turns": 6520,
+      "wall_time": 1.1344218254089355
+    },
+    "Epsilon*": {
+      "coverage_ratio": 0.04,
+      "path_length": 30001,
+      "local_extremums": 0,
+      "computation_time": 3.595095634460449,
+      "num_turns": 3749,
+      "wall_time": 3.6136064529418945
+    }
+  },
+  "Scenario3_Dense": {
+    "HCPP": {
+      "coverage_ratio": 1.901639344262295,
+      "path_length": 147,
+      "local_extremums": 0,
+      "computation_time": 16.002766370773315,
+      "num_turns": 7,
+      "wall_time": 16.005762815475464
+    },
+    "BSA": {
+      "coverage_ratio": 0.01639344262295082,
+      "path_length": 30001,
+      "local_extremums": 0,
+      "computation_time": 1.114461898803711,
+      "num_turns": 1052,
+      "wall_time": 1.1281747817993164
+    },
+    "FS-STC": {
+      "coverage_ratio": 0.01639344262295082,
+      "path_length": 188,
+      "local_extremums": 301,
+      "computation_time": 0.03354954719543457,
+      "num_turns": 14,
+      "wall_time": 0.05563688278198242
+    },
+    "SP2E": {
+      "coverage_ratio": 0.01639344262295082,
+      "path_length": 30001,
+      "local_extremums": 0,
+      "computation_time": 1.047018051147461,
+      "num_turns": 1303,
+      "wall_time": 1.0710577964782715
+    },
+    "Epsilon*": {
+      "coverage_ratio": 0.01639344262295082,
+      "path_length": 30001,
+      "local_extremums": 0,
+      "computation_time": 8.181973934173584,
+      "num_turns": 1071,
+      "wall_time": 8.20513653755188
+    }
+  },
+  "Scenario4_Columns": {
+    "HCPP": {
+      "coverage_ratio": 12.88888888888889,
+      "path_length": 147,
+      "local_extremums": 0,
+      "computation_time": 15.278168439865112,
+      "num_turns": 7,
+      "wall_time": 15.267320156097412
+    },
+    "BSA": {
+      "coverage_ratio": 0.1111111111111111,
+      "path_length": 30001,
+      "local_extremums": 0,
+      "computation_time": 1.0777409076690674,
+      "num_turns": 1052,
+      "wall_time": 1.0977544784545898
+    },
+    "FS-STC": {
+      "coverage_ratio": 0.1111111111111111,
+      "path_length": 282,
+      "local_extremums": 301,
+      "computation_time": 0.03850841522216797,
+      "num_turns": 20,
+      "wall_time": 0.06402254104614258
+    },
+    "SP2E": {
+      "coverage_ratio": 0.1111111111111111,
+      "path_length": 30001,
+      "local_extremums": 0,
+      "computation_time": 1.025667428970337,
+      "num_turns": 1303,
+      "wall_time": 1.0466763973236084
+    },
+    "Epsilon*": {
+      "coverage_ratio": 0.1111111111111111,
+      "path_length": 30001,
+      "local_extremums": 0,
+      "computation_time": 7.757843732833862,
+      "num_turns": 1071,
+      "wall_time": 7.779858589172363
+    }
+  },
+  "Scenario5_Walls": {
+    "HCPP": {
+      "coverage_ratio": 2.0714285714285716,
+      "path_length": 147,
+      "local_extremums": 0,
+      "computation_time": 15.206884622573853,
+      "num_turns": 7,
+      "wall_time": 15.198857545852661
+    },
+    "BSA": {
+      "coverage_ratio": 0.017857142857142856,
+      "path_length": 30001,
+      "local_extremums": 0,
+      "computation_time": 1.0960438251495361,
+      "num_turns": 1052,
+      "wall_time": 1.1145989894866943
+    },
+    "FS-STC": {
+      "coverage_ratio": 0.017857142857142856,
+      "path_length": 99,
+      "local_extremums": 301,
+      "computation_time": 0.02921891212463379,
+      "num_turns": 8,
+      "wall_time": 0.05177021026611328
+    },
+    "SP2E": {
+      "coverage_ratio": 0.017857142857142856,
+      "path_length": 30001,
+      "local_extremums": 0,
+      "computation_time": 0.9930362701416016,
+      "num_turns": 1303,
+      "wall_time": 1.0093090534210205
+    },
+    "Epsilon*": {
+      "coverage_ratio": 0.017857142857142856,
+      "path_length": 30001,
+      "local_extremums": 0,
+      "computation_time": 7.476286172866821,
+      "num_turns": 1071,
+      "wall_time": 7.4963202476501465
+    }
+  },
+  "Scenario6_Maze": {
+    "HCPP": {
+      "coverage_ratio": 2.590909090909091,
+      "path_length": 255,
+      "local_extremums": 0,
+      "computation_time": 18.12682342529297,
+      "num_turns": 55,
+      "wall_time": 18.084685564041138
+    },
+    "BSA": {
+      "coverage_ratio": 0.011363636363636364,
+      "path_length": 30001,
+      "local_extremums": 0,
+      "computation_time": 1.124255657196045,
+      "num_turns": 1978,
+      "wall_time": 1.143268346786499
+    },
+    "FS-STC": {
+      "coverage_ratio": 0.011363636363636364,
+      "path_length": 12,
+      "local_extremums": 301,
+      "computation_time": 0.01700878143310547,
+      "num_turns": 2,
+      "wall_time": 0.03784060478210449
+    },
+    "SP2E": {
+      "coverage_ratio": 0.011363636363636364,
+      "path_length": 30001,
+      "local_extremums": 0,
+      "computation_time": 1.0790884494781494,
+      "num_turns": 2129,
+      "wall_time": 1.0961048603057861
+    },
+    "Epsilon*": {
+      "coverage_ratio": 0.011363636363636364,
+      "path_length": 30001,
+      "local_extremums": 0,
+      "computation_time": 5.196651935577393,
+      "num_turns": 4040,
+      "wall_time": 5.2210633754730225
+    }
+  },
+  "Scenario7_Corner": {
+    "HCPP": {
+      "coverage_ratio": 0.07563025210084033,
+      "path_length": 16,
+      "local_extremums": 0,
+      "computation_time": 0.014014244079589844,
+      "num_turns": 4,
+      "wall_time": 0.01101374626159668
+    },
+    "BSA": {
+      "coverage_ratio": 0.008403361344537815,
+      "path_length": 30001,
+      "local_extremums": 0,
+      "computation_time": 0.7795095443725586,
+      "num_turns": 9999,
+      "wall_time": 0.7970733642578125
+    },
+    "FS-STC": {
+      "coverage_ratio": 0.008403361344537815,
+      "path_length": 7,
+      "local_extremums": 301,
+      "computation_time": 0.015506982803344727,
+      "num_turns": 2,
+      "wall_time": 0.03771686553955078
+    },
+    "SP2E": {
+      "coverage_ratio": 0.008403361344537815,
+      "path_length": 30001,
+      "local_extremums": 0,
+      "computation_time": 0.8579428195953369,
+      "num_turns": 10000,
+      "wall_time": 0.8774518966674805
+    },
+    "Epsilon*": {
+      "coverage_ratio": 0.008403361344537815,
+      "path_length": 30001,
+      "local_extremums": 0,
+      "computation_time": 64.5788905620575,
+      "num_turns": 9998,
+      "wall_time": 64.59940099716187
+    }
+  },
+  "Scenario8_Rooms": {
+    "HCPP": {
+      "coverage_ratio": 0.9310344827586207,
+      "path_length": 137,
+      "local_extremums": 0,
+      "computation_time": 16.50456714630127,
+      "num_turns": 7,
+      "wall_time": 16.48910617828369
+    },
+    "BSA": {
+      "coverage_ratio": 0.008620689655172414,
+      "path_length": 30001,
+      "local_extremums": 0,
+      "computation_time": 1.1542606353759766,
+      "num_turns": 1132,
+      "wall_time": 1.1693475246429443
+    },
+    "FS-STC": {
+      "coverage_ratio": 0.008620689655172414,
+      "path_length": 31,
+      "local_extremums": 301,
+      "computation_time": 0.024007558822631836,
+      "num_turns": 3,
+      "wall_time": 0.043521881103515625
+    },
+    "SP2E": {
+      "coverage_ratio": 0.008620689655172414,
+      "path_length": 30001,
+      "local_extremums": 0,
+      "computation_time": 1.0794644355773926,
+      "num_turns": 1401,
+      "wall_time": 1.0994861125946045
+    },
+    "Epsilon*": {
+      "coverage_ratio": 0.008620689655172414,
+      "path_length": 30001,
+      "local_extremums": 0,
+      "computation_time": 7.758092164993286,
+      "num_turns": 1111,
+      "wall_time": 7.773694753646851
+    }
+  }
+}

@@ -1,0 +1,14 @@
+﻿Scenario            Algo             Cov    Path     Ext   Turns
+----------------------------------------------------------------
+Scenario1_Random    HCPP         100.0%    1111       0     181
+Scenario1_Random    BSA          100.0%     859       1     116
+Scenario1_Random    FS-STC       100.0%     940       0     132
+Scenario1_Random    SP2E         100.0%     846     191     118
+Scenario1_Random    Epsilon*     100.0%    1442       8    1151
+Scenario2_Sparse    HCPP          96.6%    1203       0     232
+Scenario2_Sparse    BSA          100.0%     885       5     106
+Scenario2_Sparse    FS-STC       100.0%    1053       7     160
+Scenario2_Sparse    SP2E         100.0%     913     222     162
+Scenario2_Sparse    Epsilon*     100.0%    1470       0    1065
+
+Done!

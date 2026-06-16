@@ -1,0 +1,86 @@
+{
+  "Scenario1_Random": {
+    "HCPP": {
+      "coverage_ratio": 1.0,
+      "path_length": 356,
+      "local_extremums": 0,
+      "computation_time": 2.6262729167938232,
+      "num_turns": 113,
+      "wall_time": 2.6339762210845947
+    },
+    "BSA": {
+      "coverage_ratio": 1.0,
+      "path_length": 15001,
+      "local_extremums": 0,
+      "computation_time": 0.6090929508209229,
+      "num_turns": 1098,
+      "wall_time": 0.6170971393585205
+    },
+    "FS-STC": {
+      "coverage_ratio": 1.0,
+      "path_length": 269,
+      "local_extremums": 301,
+      "computation_time": 0.03514289855957031,
+      "num_turns": 20,
+      "wall_time": 0.05759692192077637
+    },
+    "SP2E": {
+      "coverage_ratio": 1.0,
+      "path_length": 15001,
+      "local_extremums": 0,
+      "computation_time": 0.6652469635009766,
+      "num_turns": 1098,
+      "wall_time": 0.6757547855377197
+    },
+    "Epsilon*": {
+      "coverage_ratio": 1.0,
+      "path_length": 14415,
+      "local_extremums": 879,
+      "computation_time": 11.088783740997314,
+      "num_turns": 733,
+      "wall_time": 11.101962804794312
+    }
+  },
+  "Scenario2_Sparse": {
+    "HCPP": {
+      "coverage_ratio": 1.0,
+      "path_length": 50,
+      "local_extremums": 0,
+      "computation_time": 0.6495335102081299,
+      "num_turns": 10,
+      "wall_time": 0.6575608253479004
+    },
+    "BSA": {
+      "coverage_ratio": 1.0,
+      "path_length": 15001,
+      "local_extremums": 0,
+      "computation_time": 0.6202483177185059,
+      "num_turns": 2726,
+      "wall_time": 0.6332502365112305
+    },
+    "FS-STC": {
+      "coverage_ratio": 1.0,
+      "path_length": 49,
+      "local_extremums": 301,
+      "computation_time": 0.01819753646850586,
+      "num_turns": 11,
+      "wall_time": 0.020198345184326172
+    },
+    "SP2E": {
+      "coverage_ratio": 1.0,
+      "path_length": 15001,
+      "local_extremums": 0,
+      "computation_time": 0.5495483875274658,
+      "num_turns": 3260,
+      "wall_time": 0.5555486679077148
+    },
+    "Epsilon*": {
+      "coverage_ratio": 1.0,
+      "path_length": 15001,
+      "local_extremums": 0,
+      "computation_time": 1.7746424674987793,
+      "num_turns": 1874,
+      "wall_time": 1.7836568355560303
+    }
+  }
+}

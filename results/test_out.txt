@@ -1,0 +1,4 @@
+﻿Scenario1_Random: cov=100.00% path=1442 ext=8 turns=1151
+Scenario2_Sparse: cov=100.00% path=1470 ext=0 turns=1065
+
+Done!
