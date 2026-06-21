@@ -88,30 +88,36 @@ def single_test():
     print(f"Computation time: {planner.comp_time:.3f}s")
     print(f"CTS cells: {len(planner.cts)}")
 
-    # 构建合并地图用于可视化：global_map 为底图，叠加 robot_map 的 COVERED
     import copy
-    merged_map = copy.deepcopy(global_map)
-    # 将 robot_map 中已覆盖的格子覆盖到 merged_map 上
-    merged_map.grid[robot_map.grid == GridMap.COVERED] = GridMap.COVERED
+    visual_map = copy.deepcopy(robot_map)
 
-    # 绘制并保存地图（普通路径图）
-    plot_map(merged_map, planner.path, title="HCPP - Single Test (Scenario2_Sparse)",
+    plot_map(visual_map, planner.path, title="HCPP - Single Test (Scenario1_Random)",
              save_path="results/single_test.png")
     print("Plot saved to results/single_test.png")
     
-    # 绘制带方向箭头的路径图
-    plot_map_with_direction(merged_map, planner.path, 
-                           title="HCPP - Path with Direction (Scenario2_Sparse)",
+    plot_map_with_direction(visual_map, planner.path,
+                           title="HCPP - Path with Direction (Scenario1_Random)",
                            save_path="results/single_test_direction.png",
                            arrow_interval=5)
     print("Direction plot saved to results/single_test_direction.png")
 
-    # 绘制单元分解图
     from hcpp.visualization import plot_hcpp_cells
-    plot_hcpp_cells(merged_map, planner.cts, planner.path, 1,
+    plot_hcpp_cells(visual_map, planner.cts, planner.path, 1,
                     title="HCPP Cell Decomposition - Single Test",
                     save_path="results/single_test_cells.png")
     print("Cells plot saved to results/single_test_cells.png")
+
+    global_visual = copy.deepcopy(global_map)
+    global_visual.grid[robot_map.grid == GridMap.COVERED] = GridMap.COVERED
+    plot_map(global_visual, planner.path,
+             title="Global Map with Robot Path (Scenario1_Random)",
+             save_path="results/single_test_global_map.png")
+    print("Global map plot saved to results/single_test_global_map.png")
+
+    plot_map(global_map, [],
+             title="True Global Map (Scenario1_Random)",
+             save_path="results/single_test_true_map.png")
+    print("True map plot saved to results/single_test_true_map.png")
 
     return planner
 

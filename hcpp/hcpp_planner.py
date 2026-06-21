@@ -176,6 +176,7 @@ class HCPPPlanner:
         self._global_tour = []
         self._local_path = []
         self._local_path_idx = 0
+        self._last_completed_task_id = None
 
         self._step_count = 0
         self._initialized = False
@@ -191,6 +192,7 @@ class HCPPPlanner:
         self._in_go_around = False
         self._go_around_path = []
         self._go_around_idx = 0
+        self._explored_obstacle_keys = set()
 
         # 已访问集合 (用于覆盖判断)
         self._visited_cells = set()
@@ -224,6 +226,7 @@ class HCPPPlanner:
         self._in_boundary_explore = False
         self._in_go_around = False
         self._new_obstacle_flag = False
+        self._explored_obstacle_keys = set()
 
         # 初始感知 (仅发现，不标记覆盖)
         self._sense()
@@ -234,6 +237,7 @@ class HCPPPlanner:
         self._global_tour = []
         self._local_path = []
         self._local_path_idx = 0
+        self._last_completed_task_id = None
 
     def _on_cell_changed(self, gx, gy, new_state):
         """网格状态变化回调: 跟踪 OBSTACLE/COVERED 变化，单独记录障碍物列"""
@@ -318,6 +322,7 @@ class HCPPPlanner:
                     break
             if all_covered:
                 task.completed = True
+                self._last_completed_task_id = task.id
                 self._local_path = []
                 self._local_path_idx = 0
                 self._update_cell_decomposition()  # 刷新邻接关系，更新单元划分
@@ -345,7 +350,6 @@ class HCPPPlanner:
 
 
     def _do_obstacle_exploration(self, clockwise=True):
-        print("调用了绕障算法")
         """
         执行障碍物探索：沿障碍物边界绕行。
         停在已覆盖格子附近。
@@ -444,8 +448,7 @@ class HCPPPlanner:
                         rx, ry = front_x, front_y
 
 
-            # 绕障模式，检查规划的格子是否已经是覆盖了，若是则结束
-            print(f"成功进入障碍边界检测，第{t}个格子:", self.rx, self.ry)
+            # 绕障模式，检查规划的格子是否已经覆盖；若已覆盖则结束。
             if self.grid_map.is_covered(rx, ry):
                 break
 
@@ -623,9 +626,6 @@ class HCPPPlanner:
 
             # 如果是绕障模式，检查规划的格子是否已经是覆盖了，若是则结束
             if ob:
-                # print(f"第{t}个格子:", self.rx, self.ry)
-                if 320<len(self.path) < 330 :
-                    print("绕障算法")
                 if self.grid_map.is_covered(rx, ry):
                     break
 
@@ -842,70 +842,140 @@ class HCPPPlanner:
         """
         GTP 全局巡游生成 (Algorithm 2):
 
-        每步从所有未完成单元中选:
-          1. 边缘节点优先 — 按邻接数 (adj) 从小到大排序
-          2. 同度数按距离当前列的列距离从小到大排序
-        动态更新: 选完后移除该节点，邻居度数自动变化。
+        按 README/论文中的思想实现边缘优先删除:
+          1. 先以机器人当前位置最近的单元作为候选点。
+          2. 若候选点是内部点，则在剩余图中 BFS 找最近边缘点。
+          3. 删除选中的边缘点，并更新剩余图的邻接度。
+          4. 优先从刚删除点的邻居继续，否则跳到最近的边缘点。
         """
         active_tasks = [t for t in self.cts if not t.completed]
         if not active_tasks:
+            self._components = []
             return []
 
-        # 建立邻接图: id → [邻居id列表] (仅活跃邻居)
-        adj_dict = {}
+        adj_dict: dict[int, set[int]] = {}
         for task in active_tasks:
-            adj_dict[task.id] = [n for n in task.adj
-                                 if self._get_task_by_id(n)
-                                 and not self._get_task_by_id(n).completed]
+            adj_dict[task.id] = {
+                n for n in task.adj
+                if self._get_task_by_id(n)
+                and not self._get_task_by_id(n).completed
+            }
 
-        # 预计算连通分量（供 _cells_connected 使用）
+        # 记录当前 CTS 的连通分量，供 LPP 判断两单元是否连通。
         components = []
         visited_comp = set()
         for tid in adj_dict:
             if tid in visited_comp:
                 continue
-            comp = self._get_graph_component(tid, adj_dict)
+            comp = self._get_graph_component(tid, {
+                k: list(v) for k, v in adj_dict.items()
+            })
             components.append(comp)
             visited_comp |= comp
         self._components = components
 
-        # 当前列位置（初始为机器人所在列）
-        cur_px = self.rx
+        remaining = set(adj_dict)
+        # 度数按邻居所在列去重: 同列多个邻居只计1度
+        degree = {}
+        for tid, neighbors in adj_dict.items():
+            cols = set()
+            for nid in neighbors:
+                nt = self._get_task_by_id(nid)
+                if nt is not None:
+                    cols.add(nt.px)
+            degree[tid] = len(cols)
 
         tour = []
-        visited = set()
+        cnode = min(
+            remaining,
+            key=lambda tid: self._task_distance_from_robot(
+                self._get_task_by_id(tid))
+        )
 
-        while len(tour) < len(active_tasks):
-            # 所有未访问单元
-            candidates = [t for t in active_tasks if t.id not in visited]
-            if not candidates:
+        while remaining:
+            if cnode not in remaining:
+                cnode = self._nearest_remaining_brim(remaining, degree)
+
+            # 内部点不直接覆盖，先在剩余图内找最近边缘点。
+            if degree.get(cnode, 0) > 1:
+                nnode = self._find_brim_in_remaining(
+                    cnode, remaining, adj_dict, degree)
+                if nnode is None:
+                    nnode = self._nearest_remaining_brim(remaining, degree)
+            else:
+                nnode = cnode
+
+            if nnode is None:
                 break
 
-            # 按 (邻接数, 列距离) 选最优单元
-            best = min(candidates,
-                       key=lambda t: (len(adj_dict.get(t.id, [])),
-                                      abs(t.px - self.rx) + min(abs(t.pu - self.ry), abs(t.pd - self.ry))))
+            tour.append(nnode)
+            remaining.remove(nnode)
 
-            tour.append(best.id)
-            visited.add(best.id)
-            cur_px = best.px
+            next_candidates = []
+            for nid in list(adj_dict.get(nnode, ())):
+                adj_dict[nid].discard(nnode)
+                # 更新度数: 剩余的邻居按列去重计数 (同列多个邻居只计1度)
+                cols = set()
+                for remain_id in (adj_dict[nid] & remaining):
+                    nt = self._get_task_by_id(remain_id)
+                    if nt is not None:
+                        cols.add(nt.px)
+                degree[nid] = len(cols)
+                if nid in remaining:
+                    next_candidates.append(nid)
+            degree.pop(nnode, None)
 
-            # 从邻接图中移除，更新邻居度数
-            for nid in adj_dict.get(best.id, []):
-                if nid in adj_dict:
-                    adj_dict[nid] = [n for n in adj_dict[nid]
-                                     if n != best.id]
+            if next_candidates:
+                cnode = min(
+                    next_candidates,
+                    key=lambda tid: self._task_distance(
+                        self._get_task_by_id(nnode),
+                        self._get_task_by_id(tid))
+                )
+            else:
+                cnode = self._nearest_remaining_brim(remaining, degree)
 
-        # self._first_global = True
-        # from hcpp.visualization import plot_hcpp_cells
-        # import os
-        # os.makedirs("results/test", exist_ok=True)
-        # print("GTP重新生成后打印",self._step_count)
-        # plot_hcpp_cells(self.grid_map, self.cts, self.path, 1,
-        #                 title=f"HCPP Cell Decomposition - Step {self._step_count}",
-        #                 save_path=f"results/test/cells_step_{self._step_count}.png")
-        # print(f"[DEBUG] Global Tour IDs: {self._global_tour}")
         return tour
+
+    def _task_distance_from_robot(self, task):
+        """计算机器人当前位置到单元最近端点的曼哈顿距离。"""
+        if task is None:
+            return math.inf
+        return abs(self.rx - task.px) + min(
+            abs(self.ry - task.pu), abs(self.ry - task.pd))
+
+    def _task_distance(self, task1, task2):
+        """计算两个单元最近端点之间的近似距离，用于 GTP 跳转排序。"""
+        if task1 is None or task2 is None:
+            return math.inf
+        ys1 = (task1.pu, task1.pd)
+        ys2 = (task2.pu, task2.pd)
+        return abs(task1.px - task2.px) + min(
+            abs(y1 - y2) for y1 in ys1 for y2 in ys2)
+
+    def _nearest_remaining_brim(self, remaining, degree):
+        """从剩余图中选离机器人最近的边缘点；没有边缘点时选最近点兜底。"""
+        if not remaining:
+            return None
+        brim = [tid for tid in remaining if degree.get(tid, 0) <= 1]
+        candidates = brim if brim else list(remaining)
+        return min(candidates,
+                   key=lambda tid: self._task_distance_from_robot(
+                       self._get_task_by_id(tid)))
+
+    def _find_brim_in_remaining(self, start_id, remaining, adj_dict, degree):
+        """在剩余图内 BFS 查找第一个边缘点。"""
+        queue = deque([start_id])
+        seen = {start_id}
+        while queue:
+            cur = queue.popleft()
+            if cur in remaining and degree.get(cur, 0) <= 1:
+                return cur
+            for nid in adj_dict.get(cur, ()):
+                if nid in remaining and nid not in seen:
+                    seen.add(nid)
+                    queue.append(nid)
+        return None
 
     def _bfs_nearest_unvisited(self, start_id, visited, adj_dict):
         """BFS 搜索最近的未访问单元"""
@@ -1376,230 +1446,810 @@ class HCPPPlanner:
                 return path
         return []
 
+    def _move_and_sense(self, gx, gy, update_task=True):
+        """探索子过程中的原子移动：更新位姿、覆盖、保存路径并立即感知。"""
+        if not self.grid_map.is_valid(gx, gy):
+            return False
+        if self.grid_map.is_obstacle(gx, gy):
+            return False
+
+        self.rx, self.ry = gx, gy
+        if not self.path or self.path[-1] != (gx, gy):
+            self.path.append((gx, gy))
+        self._visited_cells.add((gx, gy))
+        if update_task:
+            self._cover_nearby()
+        else:
+            if self.grid_map.grid[gy, gx] in (GridMap.FREE, GridMap.UNKNOWN):
+                self.grid_map.set_covered(gx, gy)
+        self._sense()
+        return True
+
+    def _run_wall_follow(self, clockwise=True, keep_wall="left",
+                         stop_at_start=False, stop_on_covered=False,
+                         max_steps=None, initial_dir=None):
+        """
+        连续式边界跟随。
+
+        keep_wall:
+          - "left": 让边界/障碍保持在机器人左侧，适合顺时针走外边界；
+          - "right": 让边界/障碍保持在机器人右侧，适合绕内部障碍。
+        """
+        gm = self.grid_map
+        dirs = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+
+        def left_of(d):
+            return (d - 1) % 4
+
+        def right_of(d):
+            return (d + 1) % 4
+
+        def back_of(d):
+            return (d + 2) % 4
+
+        def blocked(x, y):
+            return (not gm.is_valid(x, y)) or gm.is_obstacle(x, y)
+
+        cur_dir = initial_dir if initial_dir is not None else (0 if clockwise else 2)
+        start = (self.rx, self.ry)
+        visited_states = set()
+        if max_steps is None:
+            max_steps = max(8, gm.width * gm.height * 2)
+
+        for step_no in range(max_steps):
+            state = (self.rx, self.ry, cur_dir)
+            if step_no > 8 and state in visited_states:
+                break
+            visited_states.add(state)
+
+            rx, ry = self.rx, self.ry
+            fdx, fdy = dirs[cur_dir]
+            ldx, ldy = dirs[left_of(cur_dir)]
+            rdx, rdy = dirs[right_of(cur_dir)]
+            bdx, bdy = dirs[back_of(cur_dir)]
+
+            front = (rx + fdx, ry + fdy)
+            left = (rx + ldx, ry + ldy)
+            right = (rx + rdx, ry + rdy)
+            back = (rx + bdx, ry + bdy)
+
+            if keep_wall == "left":
+                # 左侧有墙且前方可走则前进；前方堵住则右转；左侧空了则左转贴回去。
+                if blocked(*left):
+                    if not blocked(*front):
+                        nxt = front
+                    elif not blocked(*right):
+                        cur_dir = right_of(cur_dir)
+                        continue
+                    else:
+                        cur_dir = back_of(cur_dir)
+                        nxt = back
+                else:
+                    cur_dir = left_of(cur_dir)
+                    fdx, fdy = dirs[cur_dir]
+                    nxt = (rx + fdx, ry + fdy)
+            else:
+                # 右手法则，内部障碍绕行时让障碍保持在右侧。
+                if blocked(*right):
+                    if not blocked(*front):
+                        nxt = front
+                    elif not blocked(*left):
+                        cur_dir = left_of(cur_dir)
+                        continue
+                    else:
+                        cur_dir = back_of(cur_dir)
+                        nxt = back
+                else:
+                    cur_dir = right_of(cur_dir)
+                    fdx, fdy = dirs[cur_dir]
+                    nxt = (rx + fdx, ry + fdy)
+
+            if blocked(*nxt):
+                continue
+            if stop_on_covered and step_no > 0 and gm.is_covered(*nxt):
+                break
+            if not self._move_and_sense(nxt[0], nxt[1], update_task=False):
+                break
+            if stop_at_start and step_no > 8:
+                if abs(self.rx - start[0]) + abs(self.ry - start[1]) <= 1:
+                    break
+
+        self._local_path = []
+        self._local_path_idx = 0
+        self._update_tasks_after_sensing()
+
+    def _run_initial_boundary_exploration(self):
+        """首次先沿环境外围边界探索一圈，再生成 CTS 和 GTP。"""
+        if not self.cts:
+            self._init_cell_decomposition()
+        self._run_wall_follow(clockwise=True, keep_wall="left",
+                              stop_at_start=True,
+                              max_steps=self.grid_map.width *
+                              self.grid_map.height * 2)
+        self._boundary_explored = True
+        self._global_tour = self._generate_global_tour()
+
+    def _obstacle_component_key(self, gx, gy):
+        """返回当前已知的障碍连通块格子集合，用于避免重复绕同一障碍。"""
+        gm = self.grid_map
+        if not gm.is_valid(gx, gy) or not gm.is_obstacle(gx, gy):
+            return None
+        queue = deque([(gx, gy)])
+        visited = {(gx, gy)}
+        while queue:
+            cx, cy = queue.popleft()
+            for nx, ny in gm.get_neighbors_4(cx, cy):
+                if (nx, ny) not in visited and gm.is_obstacle(nx, ny):
+                    visited.add((nx, ny))
+                    queue.append((nx, ny))
+        return visited
+
+    def _current_vertical_direction(self):
+        """根据当前局部路径判断机器人正在向上还是向下扫描。"""
+        if self._local_path and self._local_path_idx < len(self._local_path):
+            nx, ny = self._local_path[self._local_path_idx]
+            dy = ny - self.ry
+            if dy > 0:
+                return 1
+            if dy < 0:
+                return -1
+        if len(self.path) >= 2:
+            dy = self.path[-1][1] - self.path[-2][1]
+            if dy > 0:
+                return 1
+            if dy < 0:
+                return -1
+        return 0
+
+    def _side_unknown_obstacle(self):
+        """
+        检查当前扫描列左右两侧是否有需要探索物理边界的障碍。
+
+        当前 HCPP/GTP 可能让机器人从左侧推进，也可能绕到障碍右侧再回来，
+        所以未知边界障碍既可能出现在 (rx + 1, ry)，也可能出现在
+        (rx - 1, ry)。
+
+        手法则按前进方向决定:
+        - 障碍在 x+1:
+          往上时障碍在前进方向右侧 -> 右手法则；
+          往下时障碍在前进方向左侧 -> 左手法则。
+        - 障碍在 x-1:
+          往上时障碍在前进方向左侧 -> 左手法则；
+          往下时障碍在前进方向右侧 -> 右手法则。
+        """
+        gm = self.grid_map
+        vertical_dir = self._current_vertical_direction()
+        moving_up = vertical_dir >= 0
+
+        # 优先检查当前扫描前进侧。方向不明确时先看右侧，保持旧行为。
+        side_order = (1, -1) if moving_up else (-1, 1)
+        for side_dx in side_order:
+            ox, oy = self.rx + side_dx, self.ry
+            if not gm.is_valid(ox, oy) or not gm.is_obstacle(ox, oy):
+                continue
+
+            key = self._obstacle_component_key(ox, oy)
+            if not key or key & self._explored_obstacle_keys:
+                continue
+
+            has_unknown = False
+            for cx, cy in key:
+                for nx, ny in gm.get_neighbors_4(cx, cy):
+                    if gm.is_unknown(nx, ny):
+                        has_unknown = True
+                        break
+                if has_unknown:
+                    break
+            if has_unknown:
+                if side_dx > 0:
+                    keep_wall = "right" if moving_up else "left"
+                else:
+                    keep_wall = "left" if moving_up else "right"
+                initial_dir = 0 if moving_up else 2
+                return ox, oy, key, keep_wall, initial_dir
+        return None
+
+    def _run_obstacle_boundary_exploration(self, obstacle_cells,
+                                           keep_wall="right",
+                                           initial_dir=0):
+        """发现内部障碍后，先连续绕障探索其物理边界，再更新 CTS/GTP。"""
+        self._run_wall_follow(clockwise=True, keep_wall=keep_wall,
+                              stop_on_covered=True,
+                              max_steps=self.grid_map.width *
+                              self.grid_map.height,
+                              initial_dir=initial_dir)
+        if obstacle_cells:
+            # 已绕过的障碍格保存为集合；后续同一连通块继续被感知扩大时可直接跳过。
+            self._explored_obstacle_keys.update(obstacle_cells)
+        self._update_tasks_after_sensing()
+        self._global_tour = self._generate_global_tour()
+
+    def _is_coverable_known(self, gx, gy):
+        """已知且可覆盖的格子：FREE 或 COVERED。"""
+        if not self.grid_map.is_valid(gx, gy):
+            return False
+        return self.grid_map.grid[gy, gx] in (GridMap.FREE, GridMap.COVERED)
+
+    def _sync_completed_tasks(self):
+        """根据当前认知地图同步 CTS 中各单元的完成状态。"""
+        gm = self.grid_map
+        for task in self.cts:
+            if task.completed:
+                continue
+            y_min, y_max = task.y_range()
+            done = True
+            for gy in range(y_min, y_max + 1):
+                state = gm.grid[gy, task.px]
+                if state in (GridMap.FREE, GridMap.UNKNOWN):
+                    done = False
+                    break
+            task.completed = done
+
+    def _update_tasks_after_sensing(self):
+        """
+        感知后增量更新 CTS。
+
+        返回 True 只表示“新障碍造成的结构变化”，用于打断当前局部路径并重建
+        GTP；单纯 COVERED 引起的端点收缩不能打断 LPP，否则连通但不相邻的
+        边界绕行会被拆成每步重规划。
+        """
+        structural_changed = False
+        if self._obstacle_changed_xs:
+            obstacle_cols = set(self._obstacle_changed_xs)
+            structural_changed = self._update_cell_decomposition(
+                columns=obstacle_cols)
+            self._obstacle_changed_xs.clear()
+            self._new_obstacle_flag = False
+            for px in obstacle_cols:
+                self.changed_cells.pop(px, None)
+        elif self.changed_cells:
+            # 覆盖造成的单元收缩仍更新 CTS，但不强制重规划。
+            self._update_cell_decomposition()
+
+        self._sync_completed_tasks()
+        if structural_changed or not self._global_tour:
+            self._global_tour = self._generate_global_tour()
+        return structural_changed
+
+    def _pop_next_task(self):
+        """从全局巡游序列中取下一个未完成任务。"""
+        while self._global_tour:
+            tid = self._global_tour.pop(0)
+            task = self._get_task_by_id(tid)
+            if task is not None and not task.completed:
+                return task
+        self._global_tour = self._generate_global_tour()
+        while self._global_tour:
+            tid = self._global_tour.pop(0)
+            task = self._get_task_by_id(tid)
+            if task is not None and not task.completed:
+                return task
+        return None
+
+    def _nearest_cell_in_task(self, task, prefer_uncovered=True):
+        """返回单元内距离机器人最近的可用格子。"""
+        gm = self.grid_map
+        y_min, y_max = task.y_range()
+        candidates = []
+        for gy in range(y_min, y_max + 1):
+            state = gm.grid[gy, task.px]
+            if state == GridMap.OBSTACLE:
+                continue
+            if prefer_uncovered and state != GridMap.FREE:
+                continue
+            if state in (GridMap.FREE, GridMap.COVERED):
+                dist = abs(task.px - self.rx) + abs(gy - self.ry)
+                candidates.append((dist, gy))
+        if not candidates and prefer_uncovered:
+            return self._nearest_cell_in_task(task, prefer_uncovered=False)
+        if not candidates:
+            return None
+        _, gy = min(candidates)
+        return (task.px, gy)
+
+    def _task_sweep_from(self, task, start_cell):
+        """从进入点开始补齐该单元未覆盖格子，优先沿列方向扫描。"""
+        gm = self.grid_map
+        px, start_y = start_cell
+        y_min, y_max = task.y_range()
+
+        # 先覆盖从当前位置到较近端点的一侧，再折返覆盖另一侧。
+        if abs(start_y - y_min) <= abs(start_y - y_max):
+            order = list(range(start_y, y_min - 1, -1))
+            order.extend(range(start_y + 1, y_max + 1))
+        else:
+            order = list(range(start_y, y_max + 1))
+            order.extend(range(start_y - 1, y_min - 1, -1))
+
+        path = []
+        cur = (px, start_y)
+        for gy in order:
+            if not gm.is_valid(px, gy) or gm.is_obstacle(px, gy):
+                continue
+            if gm.grid[gy, px] != GridMap.FREE and (px, gy) != start_cell:
+                continue
+            target = (px, gy)
+            if target == cur:
+                if not path or path[-1] != target:
+                    path.append(target)
+                continue
+            segment = self._astar_4(cur[0], cur[1], target[0], target[1],
+                                    allow_unknown=False)
+            if segment:
+                path.extend(segment[1:])
+                cur = target
+        return path
+
+    def _boundary_candidate_path(self, start, goal, clockwise=True):
+        """
+        在已知未覆盖区域边界上生成候选路径。
+        这里用“贴着 COVERED/OBSTACLE 的 FREE 格子”近似 README 中的边界绕行。
+        """
+        gm = self.grid_map
+        queue = deque([start])
+        parent = {start: None}
+        dirs = self._dirs_4 if clockwise else tuple(reversed(self._dirs_4))
+
+        while queue:
+            cur = queue.popleft()
+            if cur == goal:
+                path = []
+                while cur is not None:
+                    path.append(cur)
+                    cur = parent[cur]
+                path.reverse()
+                return path
+
+            ordered = []
+            for dx, dy in dirs:
+                nx, ny = cur[0] + dx, cur[1] + dy
+                if (nx, ny) in parent:
+                    continue
+                if not gm.is_valid(nx, ny):
+                    continue
+                if gm.grid[ny, nx] not in (GridMap.FREE, GridMap.COVERED):
+                    continue
+                boundary_score = 0
+                for bx, by in self._dirs_4:
+                    ax, ay = nx + bx, ny + by
+                    if not gm.is_valid(ax, ay) or gm.grid[ay, ax] in (
+                            GridMap.COVERED, GridMap.OBSTACLE):
+                        boundary_score += 1
+                ordered.append((-boundary_score,
+                                abs(nx - goal[0]) + abs(ny - goal[1]),
+                                (nx, ny)))
+
+            for _, _, nxt in sorted(ordered):
+                parent[nxt] = cur
+                queue.append(nxt)
+        return None
+
+    def _is_uncovered_boundary_cell(self, gx, gy):
+        """判断格子是否是未覆盖区域边界格。"""
+        gm = self.grid_map
+        if not gm.is_valid(gx, gy) or gm.grid[gy, gx] != GridMap.FREE:
+            return False
+        for nx, ny in gm.get_neighbors_4(gx, gy):
+            if gm.grid[ny, nx] in (
+                    GridMap.COVERED, GridMap.OBSTACLE, GridMap.UNKNOWN):
+                return True
+        return gx in (0, gm.width - 1) or gy in (0, gm.height - 1)
+
+    def _nearest_neighbor_boundary_cell(self):
+        """从当前位置四邻域中选择最近的未覆盖边界格。"""
+        candidates = []
+        for nx, ny in self.grid_map.get_neighbors_4(self.rx, self.ry):
+            if self._is_uncovered_boundary_cell(nx, ny):
+                candidates.append((nx, ny))
+        if not candidates:
+            return None
+        return min(candidates, key=lambda p: (abs(p[0] - self.rx) +
+                                             abs(p[1] - self.ry), p[0], p[1]))
+
+    def _boundary_path_between(self, start, goal):
+        """
+        沿未覆盖边界从 start 绕行到 goal。
+        只允许经过 FREE 的未覆盖边界格，避免局部路径穿过已覆盖区域。
+        """
+        gm = self.grid_map
+        queue = deque([start])
+        parent = {start: None}
+
+        def passable(x, y):
+            if not gm.is_valid(x, y) or gm.is_obstacle(x, y):
+                return False
+            if (x, y) == goal:
+                return gm.grid[y, x] == GridMap.FREE
+            return self._is_uncovered_boundary_cell(x, y)
+
+        while queue:
+            cur = queue.popleft()
+            if cur == goal:
+                path = []
+                while cur is not None:
+                    path.append(cur)
+                    cur = parent[cur]
+                path.reverse()
+                return path
+
+            neighbors = []
+            for nx, ny in gm.get_neighbors_4(cur[0], cur[1]):
+                if (nx, ny) in parent or not passable(nx, ny):
+                    continue
+                dist = abs(nx - goal[0]) + abs(ny - goal[1])
+                neighbors.append((dist, nx, ny))
+
+            for _, nx, ny in sorted(neighbors):
+                parent[(nx, ny)] = cur
+                queue.append((nx, ny))
+        return None
+
+    def _follow_uncovered_boundary_path(self, start, goal, keep_wall="left",
+                                        initial_dir=None):
+        """
+        方向性未覆盖边界跟随。
+
+        keep_wall="left" 约等于顺时针候选，keep_wall="right" 约等于逆时针候选。
+        只在 FREE 的未覆盖边界格之间移动，生成一条候选边界路径。
+        """
+        gm = self.grid_map
+        dirs = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+
+        def left_of(d):
+            return (d - 1) % 4
+
+        def right_of(d):
+            return (d + 1) % 4
+
+        def back_of(d):
+            return (d + 2) % 4
+
+        def passable(x, y):
+            return ((x, y) == goal or
+                    self._is_uncovered_boundary_cell(x, y))
+
+        if not passable(*start) or not passable(*goal):
+            return None
+
+        if initial_dir is None:
+            # 用目标方向给一个初始朝向；后续由左右手法则纠偏。
+            dx = goal[0] - start[0]
+            dy = goal[1] - start[1]
+            if abs(dx) > abs(dy):
+                cur_dir = 1 if dx > 0 else 3
+            else:
+                cur_dir = 0 if dy >= 0 else 2
+        else:
+            cur_dir = initial_dir
+
+        cur = start
+        path = [start]
+        seen = {(cur[0], cur[1], cur_dir)}
+        max_steps = max(8, gm.width * gm.height * 2)
+
+        for _ in range(max_steps):
+            if cur == goal:
+                return path
+
+            rx, ry = cur
+            def outside(x, y):
+                if not gm.is_valid(x, y):
+                    return True
+                return gm.grid[y, x] in (
+                    GridMap.COVERED, GridMap.OBSTACLE, GridMap.UNKNOWN)
+
+            if keep_wall == "left":
+                side_dir = left_of(cur_dir)
+                away_dir = right_of(cur_dir)
+            else:
+                side_dir = right_of(cur_dir)
+                away_dir = left_of(cur_dir)
+
+            sx, sy = rx + dirs[side_dir][0], ry + dirs[side_dir][1]
+            if outside(sx, sy):
+                # Keep following the current boundary while the wall is still
+                # on the requested side. Turn away only when the front is shut.
+                candidate_dirs = [cur_dir, away_dir, back_of(cur_dir),
+                                  side_dir]
+            else:
+                # The side wall disappeared; turn toward it to reattach.
+                candidate_dirs = [side_dir, cur_dir, away_dir,
+                                  back_of(cur_dir)]
+
+            moved = False
+            for ndir in candidate_dirs:
+                nx, ny = rx + dirs[ndir][0], ry + dirs[ndir][1]
+                can_probe_corner = (
+                    ndir == cur_dir and outside(sx, sy) and
+                    gm.is_valid(nx, ny) and gm.grid[ny, nx] == GridMap.FREE)
+                if not passable(nx, ny) and not can_probe_corner:
+                    continue
+                # 指定绕向体现在候选方向顺序中；只要下一格仍是未覆盖边界格，
+                # 拐角处允许短暂丢失侧墙，再由左右手规则重新贴回边界。
+                state = (nx, ny, ndir)
+                if state in seen:
+                    continue
+                seen.add(state)
+                cur = (nx, ny)
+                cur_dir = ndir
+                path.append(cur)
+                moved = True
+                break
+
+            if not moved:
+                return None
+
+        return None
+
+    def _boundary_direction_paths(self, start, goal):
+        """
+        枚举从 start 出发的边界方向候选。
+
+        未覆盖边界格通常形成一条或多条链/环。相比普通 BFS 直接从 start
+        搜索，这里先固定 start 的第一个边界邻居，相当于分别沿顺/逆两个
+        方向绕行，再比较哪条更短。
+        """
+        gm = self.grid_map
+        if not self._is_uncovered_boundary_cell(*start):
+            return []
+        if not self._is_uncovered_boundary_cell(*goal):
+            return []
+
+        first_steps = []
+        for nx, ny in gm.get_neighbors_4(start[0], start[1]):
+            if self._is_uncovered_boundary_cell(nx, ny):
+                first_steps.append((nx, ny))
+
+        paths = []
+        for first in first_steps:
+            queue = deque([first])
+            parent = {first: start}
+            blocked_start = start
+
+            while queue:
+                cur = queue.popleft()
+                if cur == goal:
+                    path = []
+                    while cur is not None:
+                        path.append(cur)
+                        cur = parent.get(cur)
+                    path.reverse()
+                    # 用“第一步在起点周围的左右侧关系”近似标注顺/逆绕向，
+                    # 后续只把较短绕向传给连续贴边算法。
+                    keep_wall = self._boundary_keep_wall_for_first_step(
+                        start, first)
+                    paths.append((keep_wall, path))
+                    break
+
+                for nx, ny in gm.get_neighbors_4(cur[0], cur[1]):
+                    nxt = (nx, ny)
+                    if nxt == blocked_start or nxt in parent:
+                        continue
+                    if not self._is_uncovered_boundary_cell(nx, ny):
+                        continue
+                    parent[nxt] = cur
+                    queue.append(nxt)
+
+        return paths
+
+    def _boundary_keep_wall_for_first_step(self, start, first_step):
+        """根据边界起点的第一步判断该候选应使用左手还是右手贴边。"""
+        gm = self.grid_map
+        dirs = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+        dir_map = {(0, 1): 0, (1, 0): 1, (0, -1): 2, (-1, 0): 3}
+        dx = first_step[0] - start[0]
+        dy = first_step[1] - start[1]
+        move_dir = dir_map.get((dx, dy))
+        if move_dir is None:
+            return "left"
+
+        left_dir = (move_dir - 1) % 4
+        right_dir = (move_dir + 1) % 4
+        lx, ly = start[0] + dirs[left_dir][0], start[1] + dirs[left_dir][1]
+        rx, ry = start[0] + dirs[right_dir][0], start[1] + dirs[right_dir][1]
+
+        def outside(x, y):
+            if not gm.is_valid(x, y):
+                return True
+            return gm.grid[y, x] in (
+                GridMap.COVERED, GridMap.OBSTACLE, GridMap.UNKNOWN)
+
+        left_outside = outside(lx, ly)
+        right_outside = outside(rx, ry)
+        if left_outside and not right_outside:
+            return "left"
+        if right_outside and not left_outside:
+            return "right"
+        return "left"
+
+    def _plan_connected_nonadjacent_path(self, entry):
+        """
+        LPP 场景2：目标单元与当前已覆盖单元连通但不相邻。
+        先进入当前位置四邻域中的未覆盖边界格，再沿未覆盖边界绕到目标入口。
+        """
+        boundary_start = self._nearest_neighbor_boundary_cell()
+        if boundary_start is None:
+            return None
+
+        to_boundary = self._astar_4(self.rx, self.ry,
+                                    boundary_start[0], boundary_start[1],
+                                    allow_unknown=False)
+        if not to_boundary:
+            return None
+
+        # 先快速用边界图估计顺/逆哪个方向更短，再用连续贴边法生成路径。
+        estimate_paths = self._boundary_direction_paths(boundary_start, entry)
+        boundary_path = None
+        if estimate_paths:
+            best_keep_wall, best_estimate = min(
+                estimate_paths, key=lambda item: len(item[1]))
+            first_step = best_estimate[1] if len(best_estimate) > 1 else None
+            if first_step is not None:
+                dx = first_step[0] - boundary_start[0]
+                dy = first_step[1] - boundary_start[1]
+                dir_map = {(0, 1): 0, (1, 0): 1, (0, -1): 2, (-1, 0): 3}
+                initial_dir = dir_map.get((dx, dy))
+                follow_candidates = []
+                for keep_wall in (best_keep_wall,
+                                  "right" if best_keep_wall == "left"
+                                  else "left"):
+                    candidate = self._follow_uncovered_boundary_path(
+                        boundary_start, entry, keep_wall=keep_wall,
+                        initial_dir=initial_dir)
+                    if candidate:
+                        follow_candidates.append(candidate)
+                if follow_candidates:
+                    boundary_path = min(follow_candidates, key=len)
+            if not boundary_path:
+                boundary_path = best_estimate
+        else:
+            boundary_path = self._boundary_path_between(boundary_start, entry)
+        if not boundary_path:
+            return None
+
+        path = to_boundary[1:]
+        if path and path[-1] == boundary_path[0]:
+            path.extend(boundary_path[1:])
+        else:
+            path.extend(boundary_path)
+        return path
+
+    def _plan_local_path_to_task(self, task):
+        """
+        LPP 局部路径规划:
+        - 相邻/不连通场景用 A* 到达目标单元入口；
+        - 连通但不相邻时尝试顺/逆两条边界候选，取较短者；
+        - 到达后沿列中线覆盖目标单元剩余 FREE 格子。
+        """
+        if task is None or task.completed:
+            return []
+
+        entry = self._nearest_cell_in_task(task)
+        if entry is None:
+            task.completed = True
+            return []
+
+        direct = self._astar_4(self.rx, self.ry, entry[0], entry[1],
+                               allow_unknown=False)
+        if direct is None:
+            direct = self._astar(self.rx, self.ry, entry[0], entry[1],
+                                 allow_unknown=False)
+
+        # 若 A* 不可达，说明已知区域断开；回退到最近前沿继续探索。
+        if direct is None:
+            return self._fallback_frontier_path()
+
+        use_path = direct
+        entry_is_adjacent = abs(self.rx - entry[0]) + abs(self.ry - entry[1]) <= 1
+        same_column_continuation = self.rx == task.px
+        if (not entry_is_adjacent and not same_column_continuation
+                and len(direct) > 2):
+            boundary_path = self._plan_connected_nonadjacent_path(entry)
+            if boundary_path:
+                use_path = boundary_path
+        elif len(direct) > 2:
+            cw = self._boundary_candidate_path((self.rx, self.ry), entry,
+                                               clockwise=True)
+            ccw = self._boundary_candidate_path((self.rx, self.ry), entry,
+                                                clockwise=False)
+            candidates = [p for p in (cw, ccw, direct) if p]
+            use_path = min(candidates, key=len)
+
+        path = use_path[1:] if use_path and use_path[0] == (self.rx, self.ry) else use_path
+        sweep = self._task_sweep_from(task, entry)
+        if sweep:
+            if path and path[-1] == sweep[0]:
+                path.extend(sweep[1:])
+            else:
+                path.extend(sweep)
+        return path
+
     # -------------------------------------------------------------------------
     # Algorithm 4: HCPP 主循环
     # -------------------------------------------------------------------------
 
     def step(self):
         """
-        执行单步规划 (重构后):
-
-        1. 边界探索 (首次 / 绕障触发) — 含更新单元与序列生成、路径加入
-        2. 感知环境 (每步)
-        3. 生成局部路径 (含过滤已完成任务 + 去往单元 + 单元内部覆盖)
-        4. 沿路径走一步 → _cover_nearby
-        5. 新障碍物被感知 → 更新 CTS + 重新生成 GTP
-        6. 检查终止条件 (每10步)
-        7. 检测是否需绕障 → 若是，调用 1
+        HCPP 单步闭环:
+        感知 → 增量维护 CTS → GTP 边缘优先排序 → LPP 生成局部路径 → 执行一步。
         """
         import time
         t0 = time.time()
         self._step_count += 1
-
-        # ---- 1. 边界探索 (首次) 并生成全局序列 ----
-        if not self._boundary_explored:
-            self._first_global = True
-            self._init_cell_decomposition()
-            # # 绘制初始单元划分 (未探索前，每列一个单元)
-            # from hcpp.visualization import plot_hcpp_cells
-            # import os
-            # os.makedirs("results", exist_ok=True)
-            # plot_hcpp_cells(self.grid_map, self.cts, None, 1,
-            #                 title="HCPP Initial Cell Decomposition",
-            #                 save_path="results/test/initial_cells.png")
-            # print("[DEBUG] Initial cell decomposition saved to results/test/initial_cells.png")
-            self._do_boundary_exploration(clockwise=True)
-            self._step_count = len(self.path)
-            self.comp_time += time.time() - t0
-
-            # # ---- 调试: 边界探索完成后绘制三张图 ----
-            # import copy
-            # from hcpp.visualization import plot_map, plot_map_with_direction, plot_hcpp_cells
-            # import os
-            # os.makedirs("results", exist_ok=True)
-            # merged_map = copy.deepcopy(self.global_map)
-            # merged_map.grid[self.grid_map.grid == GridMap.COVERED] = GridMap.COVERED
-            # plot_map(merged_map, self.path,
-            #          title="HCPP - Boundary Exploration",
-            #          save_path="results/test/boundary_explored_map.png")
-            # plot_map_with_direction(merged_map, self.path,
-            #                         title="HCPP - Path with Direction (After Boundary Exploration)",
-            #                         save_path="results/test/boundary_explored_direction.png",
-            #                         arrow_interval=5)
-            # plot_hcpp_cells(merged_map, self.cts, self.path, 1,
-            #                 title="HCPP Cell Decomposition - After Boundary Exploration",
-            #                 save_path="results/test/boundary_explored_cells.png")
-            # print("[DEBUG] Boundary exploration visualization saved to results/test/")
-
-        # ---- 2. 感知环境 ----
-        # 记录感知前障碍物数量，用于检测新障碍物
-        obstacle_count_before = int(np.sum(self.grid_map.grid == GridMap.OBSTACLE))
-        self._sense()
-        new_obstacles_sensed = self._new_obstacle_flag
-
-        # ---- 3. 生成局部路径 (两场景分发) ----
-        if not self._local_path and self._global_tour:
-            
-            # 只剩最后一个单元，直接判断是否完成并返回
-            if len(self._global_tour) <= 1 :
-                c_id = self._global_tour[0]
-                c_task = self._get_task_by_id(c_id)
-                if c_task.completed:
-                    return None
-                    
-            else :
-                # 处理掉第一个未访问的序列
-                if  self._first_global:
-                    self._first_global = False
-                    target_tid = self._global_tour[0]
-                    target_task = self._get_task_by_id(target_tid)
-                    self._local_path = self._plan_disconnected_path(None, target_task)
-
-                # 第一个序列变为已完成，正常流程处理下一个序列
-                else :
-                    # 以防万一，处理成第一个已完成，第二个未完成的情况
-                    first_tid = None
-                    first_task = None
-                    popped = False
-                    while len(self._global_tour) > 2:
-                        first_tid = self._global_tour[0]
-                        first_task = self._get_task_by_id(first_tid)
-                        next_tid = self._global_tour[1]
-                        next_task = self._get_task_by_id(next_tid)
-                        if first_task and first_task.completed:
-                            if  next_task.completed:
-                                self._global_tour.pop(0)
-                            elif not next_task.completed:
-                                break
-                        else:
-                            break
-
-                    # target_tid = self._global_tour[1]
-                    # target_task = self._get_task_by_id(target_tid)
-                    target_tid = next_tid
-                    target_task = next_task
-
-                    if target_task and not target_task.completed:
-
-                        # 刚覆盖完的单元 vs 目标单元，按 adj 分场景
-                        if target_tid in first_task.adj:
-                            # 场景1: 相邻 → A*到最近端点 + 直线覆盖
-                            self._local_path = self._plan_disconnected_path(
-                                None, target_task)
-                                
-                        else:
-                            # 场景2: 不相邻但连通 → 边界绕行
-                            # 检查四邻域是否有 FREE 格子，有则先移动过去
-                            for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
-                                nx, ny = self.rx + dx, self.ry + dy
-                                if self.grid_map.grid[nx, ny] == GridMap.FREE:
-                                    self.rx, self.ry = nx, ny
-                                    self.path.append((self.rx, self.ry))
-                                    break
-                            self._local_path = self._plan_boundary_path(
-                                first_task, target_task)
-                        # else:
-                        #     # 初始: 没有上一个覆盖完的单元
-                        #     self._local_path = self._plan_disconnected_path(
-                        #         None, target_task)
-                        if (self._local_path and self._local_path[0] == (self.rx, self.ry)):
-                            self._local_path = self._local_path[1:]
-                            self._local_path_idx = 0
-                    # if next_tid == 8:
-                    #     print("开始覆盖id==8的单元")
-                    #     print("当前路径:", self._local_path)
-
-
-        # ---- 4. 沿路径走一步，置为 COVERED ----
-        if  self._local_path:
-            old_x = self.rx
-            if self._local_path_idx < len(self._local_path):
-                target = self._local_path[self._local_path_idx]
-                if self._try_move(target[0], target[1]):
-                    self._local_path_idx += 0
-                else:
-                    # 移动失败: 清除当前路径，下次重新规划
-                    self._local_path = []
-                    self._local_path_idx = 0
-            else:
-                # 路径已耗尽但未被清空
-                self._local_path = []
-                self._local_path_idx = 0
-        self._sense()
-        # if (self.rx,self.ry) == (1, 28):
+        # if (self.rx,self.ry) == (11,28):
+        #     print(f"[DEBUG] Step 824 - GTP Sequence: {self._global_tour}")
+        #     print(f"[DEBUG] Step 824 - Next Planned Path: {self._local_path}")
+        #     print(f"[DEBUG] Step 824 - Robot Position: ({self.rx}, {self.ry})")
         #     from hcpp.visualization import plot_hcpp_cells
         #     import os
-        #     os.makedirs("results/test", exist_ok=True)
-        #     print("步数到达打印",self._step_count,(self.rx,self.ry))
+        #     os.makedirs("results/debug", exist_ok=True)
         #     plot_hcpp_cells(self.grid_map, self.cts, self.path, 1,
-        #                     title=f"HCPP Cell Decomposition - Step {self._step_count}",
-        #                     save_path=f"results/test/cells_step_{self._step_count}.png")
-        #     print(f"[DEBUG] Global Tour IDs: {self._global_tour}")
-        #     task_1 = self._get_task_by_id(1)
-        #     print(f"[DEBUG] Task 1 covered?: {task_1.completed}")    
-        #     print(f"[DEBUG] Task 1 adj: {task_1.adj}")
-        #     task_2 = self._get_task_by_id(2)
-        #     print(f"[DEBUG] Task 2 covered?: {task_2.completed}")    
-        #     print(f"[DEBUG] Task 2 adj: {task_2.adj}")
-
-        # if (self.rx,self.ry) == (2, 28):
-        #     from hcpp.visualization import plot_hcpp_cells
-        #     import os
-        #     os.makedirs("results/test", exist_ok=True)
-        #     print("步数到达打印",self._step_count,(self.rx,self.ry))
-        #     plot_hcpp_cells(self.grid_map, self.cts, self.path, 1,
-        #                     title=f"HCPP Cell Decomposition - Step {self._step_count}",
-        #                     save_path=f"results/test/cells_step_{self._step_count}.png")
-        #     print(f"[DEBUG] Global Tour IDs: {self._global_tour}")
-        #     task_1 = self._get_task_by_id(1)
-        #     print(f"[DEBUG] Task 1 covered?: {task_1.completed}")    
-        #     print(f"[DEBUG] Task 1 adj: {task_1.adj}")
-        #     task_2 = self._get_task_by_id(2)
-        #     print(f"[DEBUG] Task 2 covered?: {task_2.completed}")    
-        #     print(f"[DEBUG] Task 2 adj: {task_2.adj}")
-        #     # if task_13:
-            #     print(f"[DEBUG] Task 13 adj: {task_13.adj}")
-            # return None
-        # if (self.rx,self.ry) == (3,28):
+        #                     title=f"HCPP Cells - Step {self._step_count}",
+        #                     save_path=f"results/debug/cells_step_824.png")
         #     return None
-        # ---- 5. 新障碍物被感知 → 仅更新障碍物涉及的列 ----
-        if  new_obstacles_sensed:
-            has_changes = self._update_cell_decomposition(
-                columns=self._obstacle_changed_xs)
-            if has_changes:
-                self._global_tour = self._generate_global_tour()
+
+        if not self._initialized:
+            return None
+
+        if not self._boundary_explored:
+            self._run_initial_boundary_exploration()
+            self.comp_time += time.time() - t0
+            return (self.rx, self.ry)
+
+        self._sense()
+        self._update_tasks_after_sensing()
+
+        obstacle_info = self._side_unknown_obstacle()
+        if obstacle_info is not None:
+            _, _, obstacle_key, keep_wall, initial_dir = obstacle_info
+            self._run_obstacle_boundary_exploration(
+                obstacle_key, keep_wall=keep_wall, initial_dir=initial_dir)
+            self.comp_time += time.time() - t0
+            return (self.rx, self.ry)
+
+        if self._is_done():
+            self.comp_time += time.time() - t0
+            return None
+
+        # 当前路径耗尽时，按全局巡游取下一个单元重新规划。
+        while not self._local_path:
+            target_task = self._pop_next_task()
+            if target_task is None:
+                self._local_path = self._fallback_frontier_path()
+                break
+            self._local_path = self._plan_local_path_to_task(target_task)
+            self._local_path_idx = 0
+            if not self._local_path:
+                target_task.completed = True
+
+        if not self._local_path:
+            self.comp_time += time.time() - t0
+            return None
+
+        if self._local_path_idx >= len(self._local_path):
+            self._local_path = []
+            self._local_path_idx = 0
+            self.comp_time += time.time() - t0
+            return (self.rx, self.ry)
+
+        gx, gy = self._local_path[self._local_path_idx]
+        if not self._try_move(gx, gy):
+            self._local_path = []
+            self._local_path_idx = 0
+        else:
+            # 运动后立即感知和维护 CTS，发现新障碍即触发下一轮重规划。
+            self._sense()
+            if self._update_tasks_after_sensing():
                 self._local_path = []
                 self._local_path_idx = 0
-
-        # ---- 6. 检查终止条件 (每50步) ----
-        if self._step_count % 50 == 0:
-            td = time.time()
-            if self._is_done():
-                self.comp_time += time.time() - t0
-                return None
-
-        # ---- 7. 检测是否需绕障 (绕障调用 1) ----#####z这里还有bug#########---
-        # if self._local_path and self._local_path_idx < len(self._local_path):
-        rx, ry = self.rx, self.ry
-        # 根据前进方向检查侧方是否有未知边界障碍
-        if self.grid_map.is_obstacle(rx + 1, ry):
-            print("进阶条件")
-            print("绕障时局部路径数",len(self._local_path))
-            next_idx = self._local_path.index((rx,ry)) + 1
-            print("下一个目标索引:",next_idx)
-            return None
-            next_cell = self._local_path[next_idx]
-            dx_move = next_cell[0] - rx
-            dy_move = next_cell[1] - ry # 大于0往上，小于0往下
-
-            #与绕边界相反，往下时，障碍物要在左侧，逆时针
-            clockwiseP = False if dy_move < 0 else True 
-            # print(f"  [Step {self._step_count}] {side_name} obstacle "
-            #           f"({check_x},{check_y}) bordering unknown, "
-            #           f"boundary following...")
-            self._do_obstacle_exploration(clockwise=clockwiseP)
-            self._first_global = True
-
+            obstacle_info = self._side_unknown_obstacle()
+            if obstacle_info is not None:
+                _, _, obstacle_key, keep_wall, initial_dir = obstacle_info
+                self._run_obstacle_boundary_exploration(
+                    obstacle_key, keep_wall=keep_wall,
+                    initial_dir=initial_dir)
+                self._local_path = []
+                self._local_path_idx = 0
 
         self.comp_time += time.time() - t0
         return (self.rx, self.ry)

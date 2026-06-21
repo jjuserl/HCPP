@@ -88,8 +88,8 @@ class ScenarioGenerator:
             ox = rng.randint(int(0.15*width), int(0.85*width))
             oy = rng.randint(int(0.15*height), int(0.85*height))
             size = rng.randint(1, 3)   # 方块半边长 (2*size+1) 格
-            for dx in range(-size, size + 1):
-                for dy in range(-size, size + 1):
+            for dx in range(-size, size):
+                for dy in range(-size, size):
                     if grid.is_valid(ox + dx, oy + dy):
                         grid.set_obstacle(ox + dx, oy + dy)
 

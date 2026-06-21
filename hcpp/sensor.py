@@ -66,58 +66,79 @@ class SensorModel:
 
         return grid_map
 
-    def simple_sense(self, robot_map, global_map, robot_gx, robot_gy):
+    def simple_sense(self, robot_map, global_map, robot_gx, robot_gy, debug=False):
         """
-        带遮挡检测的感知模型:
+        统一5x5感知模型 (带 Bresenham 逐格遮挡检测):
         - 感知范围: 5x5 网格 (机器人在中心)
-        - 8邻域: 直接复制全局地图
-        - 外围: 如果对应方向的8邻域无障碍，则直接复制
-        
+        - 对所有格子，从机器人画 Bresenham 直线
+        - 遇障碍物即停止该射线，障碍物后方格子保持 UNKNOWN
+        - 所有方向探测深度统一，按距离排序处理
+
         坐标系: (0,0) 在左下角，x向右，y向上
         """
-        # 8邻域格子（直接列举）
-        neighbors_8 = [
-            (-1, -1), (0, -1), (1, -1),  # 下边
-            (-1,  0),          (1,  0),  # 左右
-            (-1,  1), (0,  1), (1,  1),  # 上边
-        ]
-        
-        direction_extensions = {
-            0: [(-1, -1), (-2, -2), (-2, -1), (-1, -2)],  # 左下角，延伸3个
-            1: [(0, -1), (0, -2)],                          # 正下方，延伸1个
-            2: [(1, -1), (2, -2), (2, -1), (1, -2)],       # 右下角，延伸3个
-            3: [(-1, 0), (-2, 0)],                          # 正左方，延伸1个
-            4: [(1, 0), (2, 0)],                            # 正右方，延伸1个
-            5: [(-1, 1), (-2, 2), (-2, 1), (-1, 2)],       # 左上角，延伸3个
-            6: [(0, 1), (0, 2)],                            # 正上方，延伸1个
-            7: [(1, 1), (2, 2), (2, 1), (1, 2)],           # 右上角，延伸3个
-        }
+        if debug:
+            print(f"  [Sensor] 机器人位置: ({robot_gx},{robot_gy}), 开始5x5 Bresenham感知")
 
-        # 第一步：8邻域直接复制全局地图
-        for id, (dx, dy) in enumerate(neighbors_8):
-            target_gx = robot_gx + dx
-            target_gy = robot_gy + dy
-            
-            if not global_map.is_valid(target_gx, target_gy):
+        # 收集5x5范围内所有待检测格子（排除机器人自身），按距离排序
+        cells_to_check = []
+        for dy in range(-2, 3):
+            for dx in range(-2, 3):
+                if dx == 0 and dy == 0:
+                    continue
+                gx, gy = robot_gx + dx, robot_gy + dy
+                if global_map.is_valid(gx, gy):
+                    dist = dx * dx + dy * dy  # 平方距离
+                    cells_to_check.append((dist, gx, gy))
+
+        cells_to_check.sort(key=lambda x: x[0])
+
+        blocked = set()  # 已被障碍物遮挡的格子
+
+        for dist, gx, gy in cells_to_check:
+            if (gx, gy) in blocked:
+                if debug:
+                    print(f"  [Sensor]   ({gx},{gy}) dist={dist:.0f} - 被遮挡, 保持UNKNOWN")
                 continue
-            
-            if robot_map.grid[target_gy, target_gx] == GridMap.UNKNOWN:
-                global_state = global_map.grid[target_gy, target_gx]
-                if global_state == GridMap.OBSTACLE:
-                    robot_map.set_cell(target_gx, target_gy, GridMap.OBSTACLE)
-                elif global_state == GridMap.FREE:
-                    robot_map.set_free(target_gx, target_gy)
-                    
-                    # 8邻域free才进行其后面格子赋值，否则视为看不到后面格子
 
-                    for ex_dx, ex_dy in direction_extensions[id][1:]:
-                        check_gx = robot_gx + ex_dx
-                        check_gy = robot_gy + ex_dy
-                        if not global_map.is_valid(check_gx, check_gy):
-                            continue
-                        global_state = global_map.grid[check_gy, check_gx]
-                        if global_state == GridMap.OBSTACLE:
-                            robot_map.set_cell(check_gx, check_gy, GridMap.OBSTACLE)
-                        elif global_state == GridMap.FREE:
-                            robot_map.set_free(check_gx, check_gy)
+            # 跳过 robot_map 中已检测过的格子
+            if robot_map.grid[gy, gx] != GridMap.UNKNOWN:
+                continue
+
+            # Bresenham 直线从机器人到目标格子
+            line = global_map.bresenham_line(robot_gx, robot_gy, gx, gy)
+
+            for lgx, lgy in line[1:]:  # 跳过机器人自身
+                if not global_map.is_valid(lgx, lgy):
+                    break
+
+                if (lgx, lgy) == (gx, gy):
+                    # 到达目标格子
+                    gs = global_map.grid[lgy, lgx]
+                    if gs == GridMap.OBSTACLE:
+                        robot_map.set_cell(lgx, lgy, GridMap.OBSTACLE)
+                        if debug:
+                            print(f"  [Sensor]   ({lgx},{lgy}) dist={dist:.0f} - OBSTACLE")
+                    else:
+                        robot_map.set_free(lgx, lgy)
+                        if debug:
+                            print(f"  [Sensor]   ({lgx},{lgy}) dist={dist:.0f} - FREE")
+                    break
+
+                # 路径中间格子
+                rm_state = robot_map.grid[lgy, lgx]
+                if rm_state == GridMap.OBSTACLE:
+                    blocked.add((gx, gy))
+                    if debug:
+                        print(f"  [Sensor]   ({gx},{gy}) - 被({lgx},{lgy})处障碍物遮挡")
+                    break
+                elif rm_state == GridMap.UNKNOWN:
+                    gs = global_map.grid[lgy, lgx]
+                    if gs == GridMap.OBSTACLE:
+                        robot_map.set_cell(lgx, lgy, GridMap.OBSTACLE)
+                        blocked.add((gx, gy))
+                        if debug:
+                            print(f"  [Sensor]   ({lgx},{lgy}) dist=* - OBSTACLE(途中), 遮挡({gx},{gy})")
+                        break
+                    else:
+                        robot_map.set_free(lgx, lgy)
         
