@@ -14,7 +14,7 @@ from .map_grid import GridMap
 from .sensor import SensorModel
 from .hcpp_planner import HCPPPlanner
 from .baselines import BSAPlanner, FSSTCPlanner, SP2EPlanner, EpsilonStarPlanner
-from .scenarios import ScenarioGenerator
+from .scenarios import ScenarioGenerator, custom_scenario1, custom_scenario2, custom_scenario3, custom_scenario4, custom_scenario5, custom_scenario6, custom_scenario7
 from .visualization import (
     plot_map, plot_coverage_progress, plot_comparison_table,
     plot_scenario_comparison, plot_hcpp_cells
@@ -37,52 +37,34 @@ def create_planner(algo_name, grid_map, global_map, sensor):
         raise ValueError(f"Unknown algorithm: {algo_name}")
 
 
-def calculate_coverage_ratio(grid, global_map):
+def calculate_coverage_ratio(grid, global_free_count):
     """
-    正确计算覆盖率:
+    计算覆盖率:
 
-    覆盖率 = 已覆盖格子 / (已覆盖 + 可达FREE格子)
-    不包括UNKNOWN (可能被障碍物阻挡无法到达)
+    覆盖率 = robot_map 中已覆盖格子 / global_map 中 FREE 格子总数
 
-    这样100%覆盖率是可达的。
+    参数:
+        grid: 机器人的认知地图 (robot_map)
+        global_free_count: 全局真实地图中 FREE 格子的总数 (预计算, 不变)
     """
-    # 统计已覆盖格子
     covered = np.sum(grid.grid == GridMap.COVERED)
-
-    # 统计可达的FREE格子 (从机器人位置BFS)
-    # gm = grid
-    # from collections import deque
-    # reachable_free = 0
-    # queue = deque([(robot_gx, robot_gy)])
-    # visited = {(robot_gx, robot_gy)}
-
-    # while queue:
-    #     gx, gy = queue.popleft()
-    #     if gm.grid[gy, gx] == GridMap.FREE:
-    #         reachable_free += 1
-    #     for nx, ny in gm.get_neighbors_4(gx, gy):
-    #         if (nx, ny) in visited:
-    #             continue
-    #         if gm.is_obstacle(nx, ny):
-    #             continue
-    #         visited.add((nx, ny))
-    #         if gm.grid[ny, nx] in (GridMap.FREE, GridMap.COVERED):
-    #             queue.append((nx, ny))
-
-    # total = covered + reachable_free
-    total = np.sum(global_map.grid != GridMap.UNKNOWN)
-    if total == 0:
+    if global_free_count is None or global_free_count == 0:
         return 0.0
-    return covered / total
+    return covered / global_free_count
 
 
-def run_single_experiment(algo_name, grid_map, sensor, start_gx, start_gy,
-                          max_steps=30000):
+def run_single_experiment(algo_name, grid_map, global_map, sensor, start_gx, start_gy,
+                          max_steps=30000, global_free_count=None):
     """
     在网格地图副本上运行单个算法的单次实验
+
+    参数:
+        grid_map: 原始场景地图 (用于创建 robot_map 的尺寸)
+        global_map: 全局真实地图 (非障碍物已标记为 FREE)
+        global_free_count: 全局 FREE 格子总数 (预计算)
     """
     import copy
-    global_map = grid_map  # 全局真实地图（保持不变）
+    # global_map 已经是标记了 FREE 的真实地图（保持不变）
     
     # 创建机器人的认知地图（初始化为全 UNKNOWN）
     robot_map = GridMap(grid_map.width * grid_map.resolution, 
@@ -106,8 +88,8 @@ def run_single_experiment(algo_name, grid_map, sensor, start_gx, start_gy,
         final_rx = getattr(planner, 'robot_gx', start_gx)
         final_ry = getattr(planner, 'robot_gy', start_gy)
 
-    # 计算覆盖率 (基于机器人自己的认知地图)
-    coverage_ratio = calculate_coverage_ratio(robot_map, global_map)
+    # 计算覆盖率 (基于机器人自己的认知地图 / 全局 FREE 格子数)
+    coverage_ratio = calculate_coverage_ratio(robot_map, global_free_count)
 
     path_length = len(path) if path else 0
 
@@ -155,6 +137,12 @@ def run_experiments(scenarios, algorithms, max_steps=30000, save_dir="results/te
         grid_map, (start_gx, start_gy) = scenario_func()
         sensor = SensorModel(range_max=3.0, angle_resolution=1.0, fov=360.0)
 
+        # 创建全局真实地图: 非障碍物格子标记为 FREE
+        import copy
+        global_map = copy.deepcopy(grid_map)
+        global_map.grid[global_map.grid != GridMap.OBSTACLE] = GridMap.FREE
+        global_free_count = int(np.sum(global_map.grid == GridMap.FREE))
+
         scenario_results = {}
 
         for algo_name in algorithms:
@@ -162,7 +150,8 @@ def run_experiments(scenarios, algorithms, max_steps=30000, save_dir="results/te
             t0 = time.time()
 
             result = run_single_experiment(
-                algo_name, grid_map, sensor, start_gx, start_gy, max_steps
+                algo_name, grid_map, global_map, sensor, start_gx, start_gy,
+                max_steps, global_free_count
             )
             result["wall_time"] = time.time() - t0
 
@@ -304,36 +293,33 @@ def main():
 
     algorithms = ["HCPP", "BSA", "FS-STC", "SP2E", "Epsilon*"]
 
-    # 获取所有场景
-    scenarios = ScenarioGenerator.get_all_scenarios()
-    complex_scenarios = ScenarioGenerator.get_complex_scenarios()
+    # 自定义场景列表（7个场景）
+    custom_scenarios = [
+        ("Custom1_分散矩形", custom_scenario1),
+        ("Custom2_L形组合", custom_scenario2),
+        ("Custom3_十字分散", custom_scenario3),
+        ("Custom4_四角分散", custom_scenario4),
+        ("Custom5_中央大方块", custom_scenario5),
+        ("Custom6_走廊分割", custom_scenario6),
+        ("Custom7_复杂组合", custom_scenario7),
+    ]
 
-    # 运行标准场景实验 (8个场景)
-    print("\n\nRunning standard scenarios (8 scenarios)...")
-    results = run_experiments(scenarios, algorithms, max_steps=30000,
-                              save_dir="results")
-
-    # 运行复杂场景实验
-    print("\n\nRunning complex scenarios...")
-    complex_results = run_experiments(
-        complex_scenarios, algorithms, max_steps=50000,
-        save_dir="results/complex"
-    )
-
-    # 合并结果
-    all_results = {**results, **complex_results}
+    # 运行自定义场景实验 (7个场景)
+    print("\n\nRunning custom scenarios (7 scenarios)...")
+    results = run_experiments(custom_scenarios, algorithms, max_steps=30000,
+                              save_dir="results/all_test")
 
     # 打印汇总表
-    print_summary_table(all_results)
+    print_summary_table(results)
 
     # 生成可视化图表
     print("\n\nGenerating visualizations...")
-    generate_visualizations(all_results)
+    generate_visualizations(results, "results/all_test")
 
     print(f"\nEnd time: {datetime.now()}")
     print("All experiments complete!")
 
-    return all_results
+    return results
 
 
 if __name__ == "__main__":

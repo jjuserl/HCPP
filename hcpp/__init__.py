@@ -18,5 +18,5 @@ from .map_grid import GridMap
 from .sensor import SensorModel
 from .hcpp_planner import HCPPPlanner
 from .baselines import BSAPlanner, FSSTCPlanner, SP2EPlanner, EpsilonStarPlanner
-from .scenarios import ScenarioGenerator
+from .scenarios import ScenarioGenerator, custom_scenario1, custom_scenario2, show_scenario
 from .experiment import run_experiments, main

@@ -9,6 +9,7 @@
 
 import numpy as np
 from .map_grid import GridMap
+# from map_grid import GridMap
 
 
 class ScenarioGenerator:
@@ -410,3 +411,395 @@ class ScenarioGenerator:
             ("Scenario_Island", ScenarioGenerator.scenario_island),
             ("Scenario_Indoor", ScenarioGenerator.scenario_indoor),
         ]
+
+
+# ============================================================
+# 自定义场景模板
+# ============================================================
+
+def custom_scenario1(width=30, height=30):
+    """
+    自定义场景模板: 在此函数中自由放置障碍物。
+
+    使用方式:
+      1. 修改下面的障碍物列表
+      2. 终端运行: python -c "from hcpp.scenarios import custom_scenario, show_scenario; show_scenario(*custom_scenario())"
+
+    障碍物添加方式:
+      - add_rect(grid, x, y, w, h)         矩形障碍物 (x,y)=左下角, w=宽度, h=高度
+      - add_obstacle(grid, x, y)           单个障碍物格子
+      - add_line(grid, x1, y1, x2, y2)     线段障碍物
+    """
+    grid = GridMap(width, height, resolution=1.0)
+
+    # ========== 在此区域自由添加障碍物 ==========
+
+    # 示例1: 矩形障碍物
+    add_rect(grid, x=3, y=18, w=3, h=2)      # 左侧矩形
+    add_rect(grid, x=3, y=12, w=1, h=6)    # 右上方矩形
+    add_rect(grid, x=3, y=10, w=3, h=2)     # 右下角方块
+
+    add_rect(grid, x=25, y=18, w=5, h=2)      # 左侧矩形
+    add_rect(grid, x=25, y=10, w=5, h=2)    # 右上方矩形
+
+
+    # 示例2: 单个障碍物格子
+    # add_obstacle(grid, 10, 10)
+    # add_obstacle(grid, 11, 10)
+
+    # 示例3: 线段障碍物
+    # add_line(grid, 2, 15, 28, 15)          # 水平线
+    # add_line(grid, 15, 2, 15, 28)          # 竖直线
+
+    # ========== 障碍物定义结束 ==========
+
+    start_pos = ScenarioGenerator._find_valid_perimeter_start(grid, seed=42)
+    return grid, start_pos
+
+
+def custom_scenario2(width=30, height=30):
+    """
+    自定义场景模板: 在此函数中自由放置障碍物。
+
+    使用方式:
+      1. 修改下面的障碍物列表
+      2. 终端运行: python -c "from hcpp.scenarios import custom_scenario, show_scenario; show_scenario(*custom_scenario())"
+
+    障碍物添加方式:
+      - add_rect(grid, x, y, w, h)         矩形障碍物 (x,y)=左上角, w=宽度, h=高度
+      - add_obstacle(grid, x, y)           单个障碍物格子
+      - add_line(grid, x1, y1, x2, y2)     线段障碍物
+    """
+    grid = GridMap(width, height, resolution=1.0)
+
+    # ========== 在此区域自由添加障碍物 ==========
+
+    # 示例1: 矩形障碍物
+    add_rect(grid, x=3, y=11, w=3, h=8)
+    add_rect(grid, x=18, y=0, w=1, h=5)
+    add_rect(grid, x=18, y=13, w=1, h=6)
+    add_rect(grid, x=18, y=14, w=12, h=1)
+
+    # 示例2: 单个障碍物格子
+    # add_obstacle(grid, 10, 10)
+    # add_obstacle(grid, 11, 10)
+
+    # 示例3: 线段障碍物
+    # add_line(grid, 2, 15, 28, 15)          # 水平线
+    # add_line(grid, 15, 2, 15, 28)          # 竖直线
+
+    # ========== 障碍物定义结束 ==========
+
+    start_pos = ScenarioGenerator._find_valid_perimeter_start(grid, seed=42)
+    return grid, start_pos
+
+def custom_scenario3(width=30, height=30):
+    """
+    自定义场景模板: 在此函数中自由放置障碍物。
+
+    使用方式:
+      1. 修改下面的障碍物列表
+      2. 终端运行: python -c "from hcpp.scenarios import custom_scenario, show_scenario; show_scenario(*custom_scenario())"
+
+    障碍物添加方式:
+      - add_rect(grid, x, y, w, h)         矩形障碍物 (x,y)=左上角, w=宽度, h=高度
+      - add_obstacle(grid, x, y)           单个障碍物格子
+      - add_line(grid, x1, y1, x2, y2)     线段障碍物
+    """
+    grid = GridMap(width, height, resolution=1.0)
+
+    # ========== 在此区域自由添加障碍物 ==========
+
+    # 示例1: 矩形障碍物
+    add_rect(grid, x=14, y=7, w=1, h=14)
+    add_rect(grid, x=10, y=21, w=5, h=1)
+    add_rect(grid, x=9, y=6, w=6, h=1)
+    add_rect(grid, x=15, y=14, w=3, h=1)
+
+    # 示例2: 单个障碍物格子
+    # add_obstacle(grid, 10, 10)
+    # add_obstacle(grid, 11, 10)
+
+    # 示例3: 线段障碍物
+    # add_line(grid, 2, 15, 28, 15)          # 水平线
+    # add_line(grid, 15, 2, 15, 28)          # 竖直线
+
+    # ========== 障碍物定义结束 ==========
+
+    start_pos = ScenarioGenerator._find_valid_perimeter_start(grid, seed=42)
+    return grid, start_pos
+def custom_scenario4(width=30, height=30):
+    """
+    自定义场景模板: 在此函数中自由放置障碍物。
+
+    使用方式:
+      1. 修改下面的障碍物列表
+      2. 终端运行: python -c "from hcpp.scenarios import custom_scenario, show_scenario; show_scenario(*custom_scenario())"
+
+    障碍物添加方式:
+      - add_rect(grid, x, y, w, h)         矩形障碍物 (x,y)=左上角, w=宽度, h=高度
+      - add_obstacle(grid, x, y)           单个障碍物格子
+      - add_line(grid, x1, y1, x2, y2)     线段障碍物
+    """
+    grid = GridMap(width, height, resolution=1.0)
+
+    # ========== 在此区域自由添加障碍物 ==========
+
+    # 示例1: 矩形障碍物
+    add_rect(grid, x=5, y=24, w=4, h=2)
+    add_rect(grid, x=4, y=8, w=4, h=2)
+    add_rect(grid, x=24, y=20, w=2, h=4)
+    add_rect(grid, x=25, y=6, w=5, h=2)
+
+    # 示例2: 单个障碍物格子
+    # add_obstacle(grid, 10, 10)
+    # add_obstacle(grid, 11, 10)
+
+    # 示例3: 线段障碍物
+    # add_line(grid, 2, 15, 28, 15)          # 水平线
+    # add_line(grid, 15, 2, 15, 28)          # 竖直线
+
+    # ========== 障碍物定义结束 ==========
+
+    start_pos = ScenarioGenerator._find_valid_perimeter_start(grid, seed=42)
+    return grid, start_pos
+def custom_scenario5(width=30, height=30):
+    """
+    自定义场景模板: 在此函数中自由放置障碍物。
+
+    使用方式:
+      1. 修改下面的障碍物列表
+      2. 终端运行: python -c "from hcpp.scenarios import custom_scenario, show_scenario; show_scenario(*custom_scenario())"
+
+    障碍物添加方式:
+      - add_rect(grid, x, y, w, h)         矩形障碍物 (x,y)=左上角, w=宽度, h=高度
+      - add_obstacle(grid, x, y)           单个障碍物格子
+      - add_line(grid, x1, y1, x2, y2)     线段障碍物
+    """
+    grid = GridMap(width, height, resolution=1.0)
+
+    # ========== 在此区域自由添加障碍物 ==========
+
+    # 示例1: 矩形障碍物
+    add_rect(grid, x=10, y=10, w=8, h=8)
+    # add_rect(grid, x=12, y=18, w=2, h=8)
+    # add_rect(grid, x=20, y=5, w=4, h=4)
+
+    # 示例2: 单个障碍物格子
+    # add_obstacle(grid, 10, 10)
+    # add_obstacle(grid, 11, 10)
+
+    # 示例3: 线段障碍物
+    # add_line(grid, 2, 15, 28, 15)          # 水平线
+    # add_line(grid, 15, 2, 15, 28)          # 竖直线
+
+    # ========== 障碍物定义结束 ==========
+
+    start_pos = ScenarioGenerator._find_valid_perimeter_start(grid, seed=42)
+    return grid, start_pos
+def custom_scenario6(width=30, height=30):
+    """
+    自定义场景模板: 在此函数中自由放置障碍物。
+
+    使用方式:
+      1. 修改下面的障碍物列表
+      2. 终端运行: python -c "from hcpp.scenarios import custom_scenario, show_scenario; show_scenario(*custom_scenario())"
+
+    障碍物添加方式:
+      - add_rect(grid, x, y, w, h)         矩形障碍物 (x,y)=左上角, w=宽度, h=高度
+      - add_obstacle(grid, x, y)           单个障碍物格子
+      - add_line(grid, x1, y1, x2, y2)     线段障碍物
+    """
+    grid = GridMap(width, height, resolution=1.0)
+
+    # ========== 在此区域自由添加障碍物 ==========
+
+    # 示例1: 矩形障碍物
+    add_rect(grid, x=0, y=9, w=12, h=2)
+    add_rect(grid, x=0, y=22, w=12, h=2)
+    add_rect(grid, x=6, y=0, w=8, h=3)
+    add_rect(grid, x=14, y=0, w=8, h=1)
+    add_rect(grid, x=10, y=15, w=20, h=2)
+    add_rect(grid, x=28, y=11, w=2, h=4)
+    add_rect(grid, x=22, y=9, w=8, h=2)
+
+    # 示例2: 单个障碍物格子
+    # add_obstacle(grid, 10, 10)
+    # add_obstacle(grid, 11, 10)
+
+    # 示例3: 线段障碍物
+    # add_line(grid, 2, 15, 28, 15)          # 水平线
+    # add_line(grid, 15, 2, 15, 28)          # 竖直线
+
+    # ========== 障碍物定义结束 ==========
+
+    start_pos = ScenarioGenerator._find_valid_perimeter_start(grid, seed=42)
+    return grid, start_pos
+def custom_scenario7(width=30, height=30):
+    """
+    自定义场景模板: 在此函数中自由放置障碍物。
+
+    使用方式:
+      1. 修改下面的障碍物列表
+      2. 终端运行: python -c "from hcpp.scenarios import custom_scenario, show_scenario; show_scenario(*custom_scenario())"
+
+    障碍物添加方式:
+      - add_rect(grid, x, y, w, h)         矩形障碍物 (x,y)=左上角, w=宽度, h=高度
+      - add_obstacle(grid, x, y)           单个障碍物格子
+      - add_line(grid, x1, y1, x2, y2)     线段障碍物
+    """
+    grid = GridMap(width, height, resolution=1.0)
+
+    # ========== 在此区域自由添加障碍物 ==========
+
+    # 示例1: 矩形障碍物
+    add_rect(grid, x=0, y=18, w=2, h=1)
+    add_rect(grid, x=10, y=18, w=1, h=12)
+    add_rect(grid, x=6, y=18, w=4, h=1)
+    add_obstacle(grid, 18, 29)
+    add_rect(grid, x=18, y=16, w=1, h=6)
+    add_rect(grid, x=19, y=18, w=11, h=1)
+    add_rect(grid, x=18, y=0, w=1, h=10)
+    add_rect(grid, x=5, y=6, w=2, h=3)
+    add_rect(grid, x=7, y=7, w=3, h=1)
+    add_rect(grid, x=10, y=6, w=2, h=3)
+
+    # 示例2: 单个障碍物格子
+    # add_obstacle(grid, 10, 10)
+    # add_obstacle(grid, 11, 10)
+
+    # 示例3: 线段障碍物
+    # add_line(grid, 2, 15, 28, 15)          # 水平线
+    # add_line(grid, 15, 2, 15, 28)          # 竖直线
+
+    # ========== 障碍物定义结束 ==========
+
+    start_pos = ScenarioGenerator._find_valid_perimeter_start(grid, seed=42)
+    return grid, start_pos
+def custom_scenario8(width=30, height=30):
+    """
+    自定义场景模板: 在此函数中自由放置障碍物。
+
+    使用方式:
+      1. 修改下面的障碍物列表
+      2. 终端运行: python -c "from hcpp.scenarios import custom_scenario, show_scenario; show_scenario(*custom_scenario())"
+
+    障碍物添加方式:
+      - add_rect(grid, x, y, w, h)         矩形障碍物 (x,y)=左上角, w=宽度, h=高度
+      - add_obstacle(grid, x, y)           单个障碍物格子
+      - add_line(grid, x1, y1, x2, y2)     线段障碍物
+    """
+    grid = GridMap(width, height, resolution=1.0)
+
+    # ========== 在此区域自由添加障碍物 ==========
+
+    # 示例1: 矩形障碍物
+    add_rect(grid, x=5, y=5, w=3, h=5)
+    add_rect(grid, x=12, y=18, w=2, h=8)
+    add_rect(grid, x=20, y=5, w=4, h=4)
+
+    # 示例2: 单个障碍物格子
+    # add_obstacle(grid, 10, 10)
+    # add_obstacle(grid, 11, 10)
+
+    # 示例3: 线段障碍物
+    # add_line(grid, 2, 15, 28, 15)          # 水平线
+    # add_line(grid, 15, 2, 15, 28)          # 竖直线
+
+    # ========== 障碍物定义结束 ==========
+
+    start_pos = ScenarioGenerator._find_valid_perimeter_start(grid, seed=42)
+    return grid, start_pos
+
+# ---- 辅助函数: 帮助你在自定义场景中快速添加障碍物 ----
+
+def add_rect(grid, x, y, w, h):
+    """添加矩形障碍物: (x,y)=左上角, w=宽度, h=高度"""
+    for dx in range(w):
+        for dy in range(h):
+            gx, gy = x + dx, y + dy
+            if grid.is_valid(gx, gy):
+                grid.set_obstacle(gx, gy)
+
+
+def add_obstacle(grid, x, y):
+    """添加单个障碍物格子"""
+    if grid.is_valid(x, y):
+        grid.set_obstacle(x, y)
+
+
+def add_line(grid, x1, y1, x2, y2):
+    """添加线段障碍物 (Bresenham 直线)"""
+    cells = grid.bresenham_line(x1, y1, x2, y2)
+    for gx, gy in cells:
+        if grid.is_valid(gx, gy):
+            grid.set_obstacle(gx, gy)
+
+
+# ---- 可视化 ----
+
+def show_scenario(grid, start_pos=None):
+    """
+    可视化自定义场景: 只显示障碍物(黑)和非障碍物(白)，带坐标轴数字。
+
+    用法:
+      from hcpp.scenarios import custom_scenario, show_scenario
+      grid, start = custom_scenario()
+      show_scenario(grid, start)
+
+    或直接终端运行:
+      python -c "from hcpp.scenarios import custom_scenario, show_scenario; show_scenario(*custom_scenario())"
+    """
+    import matplotlib
+    matplotlib.rcParams['font.sans-serif'] = ['Microsoft YaHei', 'SimHei', 'Arial Unicode MS', 'DejaVu Sans']
+    matplotlib.rcParams['axes.unicode_minus'] = False
+    import matplotlib.pyplot as plt
+    import matplotlib.patches as mpatches
+
+    # 二值化: 障碍物=1(黑), 其他=0(白)
+    data = (grid.grid == GridMap.OBSTACLE).astype(int)
+    w, h = grid.width, grid.height
+
+    fig, ax = plt.subplots(figsize=(8, 8))
+
+    # 黑白配色
+    cmap = plt.cm.colors.ListedColormap(['#ffffff', '#000000'])
+
+    ax.imshow(data, cmap=cmap, origin='lower',
+              extent=[0, w, 0, h], aspect='equal')
+
+    # 坐标轴数字 (每1格显示一个数字)
+    ax.set_xlabel('x', fontsize=12)
+    ax.set_ylabel('y', fontsize=12)
+    ax.set_xticks(np.arange(0, w + 1, 1))
+    ax.set_yticks(np.arange(0, h + 1, 1))
+
+    # 网格线 (每1格一条线)
+    ax.grid(True, color='#cccccc', linewidth=0.3, alpha=0.5)
+
+    # 起点
+    if start_pos is not None:
+        ax.plot(start_pos[0] + 0.5, start_pos[1] + 0.5, 'ro', markersize=8,
+                markeredgecolor='darkred', markeredgewidth=2, zorder=5)
+
+    # 图例
+    legend_patches = [
+        mpatches.Patch(color='#ffffff', label='FREE'),
+        mpatches.Patch(color='#000000', label='OBSTACLE'),
+    ]
+    if start_pos is not None:
+        legend_patches.append(mpatches.Patch(color='red', label='Start'))
+    ax.legend(handles=legend_patches, loc='upper right', fontsize=9)
+
+    ax.set_title(f'Custom Scenario ({w}x{h})', fontsize=14, fontweight='bold')
+    ax.set_xlim(0, w)
+    ax.set_ylim(0, h)
+
+    plt.tight_layout()
+    plt.show()
+
+
+# ---- 如果直接运行此文件, 预览自定义场景 ----
+if __name__ == "__main__":
+    g, s = custom_scenario7()
+    show_scenario(g, s)

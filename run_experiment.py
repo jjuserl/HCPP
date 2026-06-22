@@ -16,7 +16,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from hcpp.experiment import main as run_all
 from hcpp.experiment import (run_single_experiment, print_summary_table,
                               generate_visualizations, calculate_coverage_ratio)
-from hcpp.scenarios import ScenarioGenerator
+from hcpp.scenarios import ScenarioGenerator, custom_scenario1, custom_scenario2, custom_scenario3, custom_scenario4, custom_scenario5, custom_scenario6, custom_scenario7
 from hcpp.sensor import SensorModel
 from hcpp.visualization import plot_map, plot_map_with_direction, plot_coverage_progress
 from hcpp.map_grid import GridMap
@@ -26,9 +26,12 @@ def quick_test():
     """
     快速测试: 仅运行2个场景，用于快速验证代码正确性
     """
-    print("Running quick test (2 scenarios)...")
+    print("Running quick test (2 custom scenarios)...")
     algorithms = ["HCPP", "BSA", "FS-STC", "SP2E", "Epsilon*"]
-    scenarios = ScenarioGenerator.get_all_scenarios()[:2]
+    scenarios = [
+        ("Custom1_分散矩形", custom_scenario1),
+        ("Custom2_L形组合", custom_scenario2),
+    ]
 
     from hcpp.experiment import run_experiments
     results = run_experiments(scenarios, algorithms, max_steps=15000,
@@ -40,11 +43,11 @@ def quick_test():
 
 def single_test():
     """
-    单场景测试: 仅运行 Scenario1_Random + HCPP 算法
+    单场景测试: 仅运行 Custom1_分散矩形 + HCPP 算法
     用于调试和验证算法实现
     """
-    print("Running single test (Scenario1_Random + HCPP)...")
-    grid_map, (start_gx, start_gy) = ScenarioGenerator.scenario1_random()
+    print("Running single test (Custom1_分散矩形 + HCPP)...")
+    grid_map, (start_gx, start_gy) = custom_scenario1()
     # global_map: 全局真实地图（用于传感器仿真）
     # robot_map: 机器人的认知地图（初始全 UNKNOWN，逐步探索）
     global_map = grid_map
@@ -91,33 +94,33 @@ def single_test():
     import copy
     visual_map = copy.deepcopy(robot_map)
 
-    plot_map(visual_map, planner.path, title="HCPP - Single Test (Scenario1_Random)",
-             save_path="results/single_test.png")
-    print("Plot saved to results/single_test.png")
+    plot_map(visual_map, planner.path, title="HCPP - Single Test (Custom1_分散矩形)",
+             save_path="results/all_test/single_test.png")
+    print("Plot saved to results/all_test/single_test.png")
     
     plot_map_with_direction(visual_map, planner.path,
-                           title="HCPP - Path with Direction (Scenario1_Random)",
-                           save_path="results/single_test_direction.png",
+                           title="HCPP - Path with Direction (Custom1_分散矩形)",
+                           save_path="results/all_test/single_test_direction.png",
                            arrow_interval=5)
-    print("Direction plot saved to results/single_test_direction.png")
+    print("Direction plot saved to results/all_test/single_test_direction.png")
 
     from hcpp.visualization import plot_hcpp_cells
     plot_hcpp_cells(visual_map, planner.cts, planner.path, 1,
                     title="HCPP Cell Decomposition - Single Test",
-                    save_path="results/single_test_cells.png")
-    print("Cells plot saved to results/single_test_cells.png")
+                    save_path="results/all_test/single_test_cells.png")
+    print("Cells plot saved to results/all_test/single_test_cells.png")
 
     global_visual = copy.deepcopy(global_map)
     global_visual.grid[robot_map.grid == GridMap.COVERED] = GridMap.COVERED
     plot_map(global_visual, planner.path,
-             title="Global Map with Robot Path (Scenario1_Random)",
-             save_path="results/single_test_global_map.png")
-    print("Global map plot saved to results/single_test_global_map.png")
+             title="Global Map with Robot Path (Custom1_分散矩形)",
+             save_path="results/all_test/single_test_global_map.png")
+    print("Global map plot saved to results/all_test/single_test_global_map.png")
 
     plot_map(global_map, [],
-             title="True Global Map (Scenario1_Random)",
-             save_path="results/single_test_true_map.png")
-    print("True map plot saved to results/single_test_true_map.png")
+             title="True Global Map (Custom1_分散矩形)",
+             save_path="results/all_test/single_test_true_map.png")
+    print("True map plot saved to results/all_test/single_test_true_map.png")
 
     return planner
 

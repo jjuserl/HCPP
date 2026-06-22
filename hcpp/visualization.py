@@ -23,6 +23,9 @@ plt.rcParams.update({
     'axes.labelsize': 10,
     'legend.fontsize': 8,
     'figure.dpi': 150,
+    # 中文字体支持（优先顺序）
+    'font.sans-serif': ['Microsoft YaHei', 'SimHei', 'Arial Unicode MS', 'DejaVu Sans'],
+    'axes.unicode_minus': False,
 })
 
 

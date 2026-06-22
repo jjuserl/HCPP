@@ -1,0 +1,296 @@
+{
+  "Custom1_\u5206\u6563\u77e9\u5f62": {
+    "HCPP": {
+      "coverage_ratio": 1.0,
+      "path_length": 892,
+      "local_extremums": 0,
+      "computation_time": 0.368880033493042,
+      "num_turns": 108,
+      "wall_time": 0.368880033493042
+    },
+    "BSA": {
+      "coverage_ratio": 1.0,
+      "path_length": 912,
+      "local_extremums": 8,
+      "computation_time": 0.13379597663879395,
+      "num_turns": 114,
+      "wall_time": 0.13379597663879395
+    },
+    "FS-STC": {
+      "coverage_ratio": 1.0,
+      "path_length": 873,
+      "local_extremums": 7,
+      "computation_time": 9.056518316268921,
+      "num_turns": 206,
+      "wall_time": 9.075424671173096
+    },
+    "SP2E": {
+      "coverage_ratio": 1.0,
+      "path_length": 901,
+      "local_extremums": 158,
+      "computation_time": 0.08154559135437012,
+      "num_turns": 140,
+      "wall_time": 0.08154916763305664
+    },
+    "Epsilon*": {
+      "coverage_ratio": 1.0,
+      "path_length": 1398,
+      "local_extremums": 2,
+      "computation_time": 0.46079134941101074,
+      "num_turns": 130,
+      "wall_time": 0.46079134941101074
+    }
+  },
+  "Custom2_L\u5f62\u7ec4\u5408": {
+    "HCPP": {
+      "coverage_ratio": 1.0,
+      "path_length": 906,
+      "local_extremums": 0,
+      "computation_time": 0.3639695644378662,
+      "num_turns": 115,
+      "wall_time": 0.3639695644378662
+    },
+    "BSA": {
+      "coverage_ratio": 1.0,
+      "path_length": 909,
+      "local_extremums": 1,
+      "computation_time": 0.10477924346923828,
+      "num_turns": 121,
+      "wall_time": 0.10531234741210938
+    },
+    "FS-STC": {
+      "coverage_ratio": 1.0,
+      "path_length": 871,
+      "local_extremums": 9,
+      "computation_time": 9.156213521957397,
+      "num_turns": 105,
+      "wall_time": 9.176271200180054
+    },
+    "SP2E": {
+      "coverage_ratio": 1.0,
+      "path_length": 917,
+      "local_extremums": 256,
+      "computation_time": 0.1450047492980957,
+      "num_turns": 164,
+      "wall_time": 0.14501285552978516
+    },
+    "Epsilon*": {
+      "coverage_ratio": 1.0,
+      "path_length": 1580,
+      "local_extremums": 0,
+      "computation_time": 0.6478133201599121,
+      "num_turns": 252,
+      "wall_time": 0.6488292217254639
+    }
+  },
+  "Custom3_\u5341\u5b57\u5206\u6563": {
+    "HCPP": {
+      "coverage_ratio": 1.0,
+      "path_length": 891,
+      "local_extremums": 0,
+      "computation_time": 0.28937268257141113,
+      "num_turns": 104,
+      "wall_time": 0.2908775806427002
+    },
+    "BSA": {
+      "coverage_ratio": 1.0,
+      "path_length": 890,
+      "local_extremums": 0,
+      "computation_time": 0.07237982749938965,
+      "num_turns": 79,
+      "wall_time": 0.0733799934387207
+    },
+    "FS-STC": {
+      "coverage_ratio": 1.0,
+      "path_length": 897,
+      "local_extremums": 3,
+      "computation_time": 7.73658561706543,
+      "num_turns": 96,
+      "wall_time": 7.7559332847595215
+    },
+    "SP2E": {
+      "coverage_ratio": 1.0,
+      "path_length": 899,
+      "local_extremums": 108,
+      "computation_time": 0.08048129081726074,
+      "num_turns": 109,
+      "wall_time": 0.08048343658447266
+    },
+    "Epsilon*": {
+      "coverage_ratio": 1.0,
+      "path_length": 1348,
+      "local_extremums": 2,
+      "computation_time": 0.3920004367828369,
+      "num_turns": 146,
+      "wall_time": 0.3920004367828369
+    }
+  },
+  "Custom4_\u56db\u89d2\u5206\u6563": {
+    "HCPP": {
+      "coverage_ratio": 1.0,
+      "path_length": 898,
+      "local_extremums": 0,
+      "computation_time": 0.31967997550964355,
+      "num_turns": 116,
+      "wall_time": 0.32919955253601074
+    },
+    "BSA": {
+      "coverage_ratio": 1.0,
+      "path_length": 907,
+      "local_extremums": 3,
+      "computation_time": 0.1020350456237793,
+      "num_turns": 94,
+      "wall_time": 0.1020350456237793
+    },
+    "FS-STC": {
+      "coverage_ratio": 1.0,
+      "path_length": 891,
+      "local_extremums": 9,
+      "computation_time": 8.922025203704834,
+      "num_turns": 167,
+      "wall_time": 8.95274567604065
+    },
+    "SP2E": {
+      "coverage_ratio": 1.0,
+      "path_length": 939,
+      "local_extremums": 294,
+      "computation_time": 0.1732320785522461,
+      "num_turns": 204,
+      "wall_time": 0.1737346649169922
+    },
+    "Epsilon*": {
+      "coverage_ratio": 1.0,
+      "path_length": 1354,
+      "local_extremums": 6,
+      "computation_time": 0.5221281051635742,
+      "num_turns": 139,
+      "wall_time": 0.5221281051635742
+    }
+  },
+  "Custom5_\u4e2d\u592e\u5927\u65b9\u5757": {
+    "HCPP": {
+      "coverage_ratio": 1.0,
+      "path_length": 853,
+      "local_extremums": 0,
+      "computation_time": 0.32449817657470703,
+      "num_turns": 80,
+      "wall_time": 0.32449817657470703
+    },
+    "BSA": {
+      "coverage_ratio": 1.0,
+      "path_length": 850,
+      "local_extremums": 0,
+      "computation_time": 0.06252050399780273,
+      "num_turns": 49,
+      "wall_time": 0.06402277946472168
+    },
+    "FS-STC": {
+      "coverage_ratio": 1.0,
+      "path_length": 855,
+      "local_extremums": 5,
+      "computation_time": 6.964277505874634,
+      "num_turns": 81,
+      "wall_time": 6.9840099811553955
+    },
+    "SP2E": {
+      "coverage_ratio": 1.0,
+      "path_length": 843,
+      "local_extremums": 34,
+      "computation_time": 0.07706570625305176,
+      "num_turns": 47,
+      "wall_time": 0.07706570625305176
+    },
+    "Epsilon*": {
+      "coverage_ratio": 1.0,
+      "path_length": 1299,
+      "local_extremums": 1,
+      "computation_time": 0.5872645378112793,
+      "num_turns": 144,
+      "wall_time": 0.5892839431762695
+    }
+  },
+  "Custom6_\u8d70\u5eca\u5206\u5272": {
+    "HCPP": {
+      "coverage_ratio": 1.0,
+      "path_length": 840,
+      "local_extremums": 0,
+      "computation_time": 0.49131107330322266,
+      "num_turns": 189,
+      "wall_time": 0.4913151264190674
+    },
+    "BSA": {
+      "coverage_ratio": 1.0,
+      "path_length": 831,
+      "local_extremums": 9,
+      "computation_time": 0.23206281661987305,
+      "num_turns": 101,
+      "wall_time": 0.23206520080566406
+    },
+    "FS-STC": {
+      "coverage_ratio": 1.0,
+      "path_length": 781,
+      "local_extremums": 9,
+      "computation_time": 6.500958442687988,
+      "num_turns": 180,
+      "wall_time": 6.530060529708862
+    },
+    "SP2E": {
+      "coverage_ratio": 1.0,
+      "path_length": 818,
+      "local_extremums": 254,
+      "computation_time": 0.16570639610290527,
+      "num_turns": 143,
+      "wall_time": 0.1662135124206543
+    },
+    "Epsilon*": {
+      "coverage_ratio": 1.0,
+      "path_length": 1572,
+      "local_extremums": 8,
+      "computation_time": 1.0916051864624023,
+      "num_turns": 347,
+      "wall_time": 1.0921103954315186
+    }
+  },
+  "Custom7_\u590d\u6742\u7ec4\u5408": {
+    "HCPP": {
+      "coverage_ratio": 1.0,
+      "path_length": 936,
+      "local_extremums": 0,
+      "computation_time": 0.36009669303894043,
+      "num_turns": 159,
+      "wall_time": 0.36009669303894043
+    },
+    "BSA": {
+      "coverage_ratio": 1.0,
+      "path_length": 918,
+      "local_extremums": 2,
+      "computation_time": 0.12124490737915039,
+      "num_turns": 157,
+      "wall_time": 0.1212470531463623
+    },
+    "FS-STC": {
+      "coverage_ratio": 1.0,
+      "path_length": 874,
+      "local_extremums": 6,
+      "computation_time": 8.586349964141846,
+      "num_turns": 142,
+      "wall_time": 8.608015775680542
+    },
+    "SP2E": {
+      "coverage_ratio": 1.0,
+      "path_length": 915,
+      "local_extremums": 311,
+      "computation_time": 0.15215706825256348,
+      "num_turns": 217,
+      "wall_time": 0.15215706825256348
+    },
+    "Epsilon*": {
+      "coverage_ratio": 1.0,
+      "path_length": 1873,
+      "local_extremums": 7,
+      "computation_time": 0.7277874946594238,
+      "num_turns": 342,
+      "wall_time": 0.7277874946594238
+    }
+  }
+}

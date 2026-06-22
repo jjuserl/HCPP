@@ -30,15 +30,16 @@ Extremum_prevention/
 │   ├── sensor.py              # 模拟传感器模型（360° LiDAR）
 │   ├── hcpp_planner.py        # HCPP 算法实现
 │   ├── baselines.py           # 基线算法（BSA, FS-STC, SP2E, Epsilon*）
-│   ├── scenarios.py           # 实验场景生成（10 个场景）
+│   ├── scenarios.py           # 实验场景生成（7 个自定义场景）
 │   ├── experiment.py          # 实验运行与评估模块
 │   └── visualization.py       # 可视化图表生成
 └── results/                   # 实验结果输出目录
-    ├── results.json           # 详细数值结果
-    ├── comparison_charts.png   # 算法对比柱状图
-    ├── comparison_table.png    # 汇总表格
-    ├── Scenario*.png          # 各场景覆盖路径图
-    └── Scenario*_progress.png # 覆盖率进展曲线
+    └── all_test/               # 所有实验结果（7个自定义场景）
+        ├── results.json        # 详细数值结果
+        ├── comparison_charts.png  # 算法对比柱状图
+        ├── comparison_table.png   # 汇总表格
+        ├── Custom*.png         # 各场景覆盖路径图
+        └── Custom*_progress.png # 覆盖率进展曲线
 ```
 
 ## 环境要求
@@ -62,7 +63,7 @@ pip install numpy matplotlib
 python run_experiment.py --single
 ```
 
-仅运行 `Scenario1_Random` + HCPP 算法，输出覆盖率和路径图。
+仅运行 `Custom1_分散矩形` + HCPP 算法，输出覆盖率和路径图，结果保存在 `results/all_test/`。
 
 ### 2. 快速测试（2 个场景）
 
@@ -70,7 +71,7 @@ python run_experiment.py --single
 python run_experiment.py --quick
 ```
 
-运行前 2 个场景，5 种算法对比，结果保存在 `results/quick_test/`。
+运行前 2 个自定义场景，5 种算法对比，结果保存在 `results/all_test/quick_test/`。
 
 ### 3. 运行完整实验
 
@@ -78,29 +79,21 @@ python run_experiment.py --quick
 python run_experiment.py
 ```
 
-运行全部 10 个场景（8 标准 + 2 复杂），5 种算法对比。
+运行全部 7 个自定义场景，5 种算法对比，结果保存在 `results/all_test/`。
 
 ## 实验场景
 
-### 标准场景（8 个，300m x 200m）
+### 自定义场景（7 个，30m x 30m）
 
 | 场景 | 描述 |
 |------|------|
-| Scenario1_Random | 随机矩形障碍物 |
-| Scenario2_Sparse | 稀疏圆形障碍物 |
-| Scenario3_Dense | 密集小障碍物 |
-| Scenario4_Columns | 网格状排列的圆柱体 |
-| Scenario5_Walls | 墙壁形成走廊（带缺口） |
-| Scenario6_Maze | 简易迷宫结构 |
-| Scenario7_Corner | 障碍物集中在角落 |
-| Scenario8_Rooms | 多房间结构（带门洞） |
-
-### 复杂场景（2 个）
-
-| 场景 | 尺寸 | 描述 |
-|------|------|------|
-| Scenario_Island | 100m x 100m | 中心不规则岛屿障碍物 |
-| Scenario_Indoor | 100m x 80m | 室内布局（客厅/厨房/卧室/走廊） |
+| Custom1_分散矩形 | 左侧+右侧分散矩形障碍物 |
+| Custom2_L形组合 | 左侧竖矩形 + 右下L形组合障碍物 |
+| Custom3_十字分散 | 中心竖线+上下横条障碍物 |
+| Custom4_四角分散 | 四个角落分散的方块障碍物 |
+| Custom5_中央大方块 | 中央8×8大块障碍物 |
+| Custom6_走廊分割 | 多条走廊式分割障碍物 |
+| Custom7_复杂组合 | 多个分散的小障碍复杂组合 |
 
 ## 评估指标
 
@@ -114,7 +107,7 @@ python run_experiment.py
 
 ## 实验结果 (修正后)
 
-### 覆盖率与性能汇总 (100x70, Scenario1_Random)
+### 覆盖率与性能汇总 (30x30, Custom1_分散矩形)
 
 | 指标 | HCPP | BSA | SP2E | Epsilon* |
 |------|------|-----|------|----------|
